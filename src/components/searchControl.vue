@@ -2,7 +2,7 @@
     <div class="searchControl" :style="styl">
        <span class="title_txt">{{controlInfor.txt}}:</span>
        <!--文本输入框或日历选项输入框-->
-       <input v-if="(controlInfor.controlType===1)||(controlInfor.controlType===2)" :class="inputClass" v-model="curTxtVal"/>
+       <input v-if="(controlInfor.controlType===1)||(controlInfor.controlType===2)" :disabled="isDisabled" :class="inputClass" v-model="curTxtVal"/>
        <!--下拉框-->
        <select v-if="controlInfor.controlType===3" class="input_select" v-model="curSelectVal">
            <option :key="key" v-for="(item,key) in controlInfor.options" :selected="selectedOption(key,activeOptionIndex)" :value="item.val">&nbsp;{{item.txt}}</option>
@@ -69,6 +69,10 @@
           inputClass(){
               let {controlType}=this.controlInfor;
               return (controlType===2)&&"input_calendar"||(controlType===1)&&"input_txt";
+          },
+          isDisabled(){
+              let {controlType}=this.controlInfor;
+              return controlType===2;
           }
         },
         methods:{
