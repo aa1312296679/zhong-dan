@@ -38,8 +38,12 @@
           }
         },
         created(){
-          let index=this.getCalendarControlIndex(this.searchControls,this.searchControls[1],'txt',2);
-          console.log(index);
+          // let index=this.getCalendarControlIndex(this.searchControls,this.searchControls[2],'txt',2);
+          // console.log(index);
+
+
+         let index = this.setCalendarControl(this.searchControls,this.searchControls[2],this.calendarVals,'txt',2)
+         console.log(index);
         },
         methods:{
             closeHandle(){
@@ -144,11 +148,12 @@
              * @param controls 所有控件信息
              * @param curControl 当前控件信息
              * @param calendarVals 日历信息集合
+             * @param objName 数据筛选条件
+             * @param objType 查找的数据类型
              * @return 日历控件基于日历类型控件集的日历索引
              * */
-            setCalendarControl(controls,curControl,calendarVals){
-                // 获取日历索引
-                let tempIndex =this.getCalendarControlIndex(controls,curControl);
+            setCalendarControl(controls,curControl,calendarVals,objName,objType){
+               let tempIndex=this.getCalendarControlIndex(controls,curControl,objName,objType);
                // 获取日历信息
                return  (tempIndex!==-1)?calendarVals[tempIndex]:{}
             },
