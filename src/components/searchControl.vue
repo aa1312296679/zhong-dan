@@ -1,12 +1,13 @@
 <template>
     <div class="searchControl" :style="styl">
-        <span class="title_txt">{{controlInfor.txt}}:</span>
-       <!--文字输入框-->
-       <input v-if="controlInfor.controlType===1" class="input_txt" v-model="curTxtVal"/>
+       <span class="title_txt">{{controlInfor.txt}}:</span>
+       <!--文本输入框或日历选项输入框-->
+       <input v-if="(controlInfor.controlType===1)||(controlInfor.controlType===2)" :class="inputClass" v-model="curTxtVal"/>
        <!--下拉框-->
        <select v-if="controlInfor.controlType===3" class="input_select" v-model="curSelectVal">
            <option :key="key" v-for="(item,key) in controlInfor.options" :selected="selectedOption(key,activeOptionIndex)" :value="item.val">&nbsp;{{item.txt}}</option>
        </select>
+       <img v-if="controlInfor.controlType===2" class="ico" :src="curIco">
     </div>
 </template>
 
@@ -14,7 +15,7 @@
     export default {
         name: "searchControl",
         props:{
-            controlInfor:{ //搜索控件的信息 控件类型1 文字输入框 2 下拉框
+            controlInfor:{ //搜索控件的信息 控件类型1文字输入框 2日历 3下拉框
                 type:Object,
                 default:()=>{}
             },
@@ -50,16 +51,25 @@
         data(){
             return{
                 curTxtVal:this.txtVal, //当前输入框信息
-                curSelectVal:"" //当前select信息
+                curSelectVal:"", //当前select信息
+                curIco:"" //日历图标
             }
         },
         created() {
-            console.log(this.activeOptionIndex);
+            //curIco 日历的图标信息初始化
+            let {ico}=this.controlInfor;
+            this.curIco=ico;
             if(!this.controlInfor.options){
                 return false;
             }
             // select信息初始化
             this.curSelectVal=this.controlInfor.options[this.activeOptionIndex].val;
+        },
+        computed:{
+          inputClass(){
+              let {controlType}=this.controlInfor;
+              return (controlType===2)&&"input_calendar"||(controlType===1)&&"input_txt";
+          }
         },
         methods:{
             /**
@@ -119,26 +129,36 @@
     display flex
     justify-content center
     align-items center
-    .title_txt,.input_txt,.input_select
+    position relative
+    .ico
+        border 1px dashed blue
+        display block
+        position absolute
+        left 81px
+        width 18px
+        height 18px
+    .title_txt,.input_txt,.input_select,.input_calendar
         border 1px solid #67b9ff
         background: none
         color #FFFFFF
         border-radius 4px
-    .input_txt,.input_select
+    .input_txt,.input_select,.input_calendar
         width 96px
         height 30px
         margin-left 9px
     .title_txt
         border 1px dashed red
-    .input_txt
+    .input_txt,.input_calendar
         text-indent 6px
+    .input_calendar
+        width 160px
     .input_select
         appearance: none
         -moz-appearance: none
         -webkit-appearance: none
         background-color transparent
         background-image: url("/img/select-arrow.png")
-        background-position right center
+        background-position 80px center
         background-repeat no-repeat
         padding-left 3px
         option

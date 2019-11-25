@@ -5,9 +5,9 @@
             <work-shop-header :infor="getHeaderInfor(0)" @onClose="closeHandle"></work-shop-header>
             <!--信息搜索-->
             <search-infor :inputInfors="searchControls" @onSubmit="submitHandle">
-<!--                <template scope="infors">-->
-<!--                   <search-control :styl="setStyl(infors.index)" :index="infors.index" :controlInfor="infors.item" :activeOptionIndex="activeOptionIndexs[setSelectIndex(infors.item,infors.index,searchControls)]" :txtVal="nameVal" @onTxt="txtHandle" @onSelect="selectHandle"></search-control>-->
-<!--                </template>-->
+                <template scope="infors">
+                   <search-control :styl="setStyl(infors.index)" :index="infors.index" :controlInfor="infors.item" :activeOptionIndex="activeOptionIndexs[setSelectIndex(infors.item,infors.index,searchControls)]" :txtVal="'wwl'" @onTxt="txtHandle" @onSelect="selectHandle"></search-control>
+                </template>
             </search-infor>
         </work-wrapper>
     </div>
@@ -17,7 +17,7 @@
     import WorkWrapper from "components/workWrapper";
     import WorkShopHeader from "components/workShopHeader";
     import SearchInfor from "components/searchInfor";
-    // import SearchControl from "components/searchControl";
+    import SearchControl from "components/searchControl";
     export default {
         name: "employeeWarn",
         data(){
@@ -132,7 +132,7 @@
                 this.activeOptionIndexs[selectIndex]=optionIndex
             }
         },
-        components: {SearchInfor, WorkShopHeader, WorkWrapper}
+        components: {SearchControl ,SearchInfor, WorkShopHeader, WorkWrapper}
     }
 </script>
 
