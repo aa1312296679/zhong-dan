@@ -18,8 +18,11 @@ let mouseTypies = {
 const workShopList = () => import("components/workshopList");
 // 员工信息组件
 const emplyeeInfor = () => import("components/employeeInfor");
+// 人员定位警告组件
+const employeeWarn = () => import("components/employeeWarn");
 export {
     mouseTypies,
     workShopList,
-    emplyeeInfor
+    emplyeeInfor,
+    employeeWarn
 }

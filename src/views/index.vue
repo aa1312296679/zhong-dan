@@ -16,7 +16,7 @@ import HHeader from "components/header";
 import search from "components/search";
 import menuTab from "components/menuTab";
 import menuSlideBar from "components/menuSlideBar";
-import { workShopList,emplyeeInfor } from "js/util.js";
+import { workShopList,emplyeeInfor, employeeWarn } from "js/util.js";
 export default {
   name: "index",
   data(){
@@ -76,7 +76,7 @@ export default {
                         text:"人员定位管理",
                         component:workShopList
                     },
-                    {text:"人员定位警告"},
+                    {text:"人员定位警告",component:employeeWarn},
                     {text:"施工管理"},
                     {text:"巡查管理"}
                 ]
