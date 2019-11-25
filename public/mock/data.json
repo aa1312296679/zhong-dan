@@ -1,0 +1,15 @@
+{
+  "home": {
+    "test": "模拟数据"
+  },
+  "footerInfors": [
+    {"txt":"首页","routerPath":"/index","ico":"index"},
+    {"txt":"成员","routerPath":"","ico":"member"},
+    {"txt":"客服","routerPath":"","ico":"customer_service"},
+    {"txt":"我的","routerPath":"/about","ico":"about_me"}
+  ],
+  "lotteryTickets": [
+    {"tabName":"彩票","children":[{"img":"","txt":"文字"}, {"img":"","txt":"文字"}]},
+    {"tabName":"快三","children":[{"img":"","txt":"快三"}]}
+  ]
+}
