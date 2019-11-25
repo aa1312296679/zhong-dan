@@ -32,7 +32,7 @@
                   {txt:"状态",controlType:3,options:[{txt:"已处理",val:0},{txt:"未处理",val:1}]}
               ],
               isState:true, //提交状态 true允许提交 false禁止提交 ajax提交但数据未成功时false，ajax提交并提交成功时true
-              activeOptionIndexs:[0,1,0], //所有被选中的option索引 暂时假设所有控件都用第一个Option索引
+              activeOptionIndexs:[0,1], //所有被选中的option索引 暂时假设所有控件都用第一个Option索引
               calendarVals:[{year:2019,month:11,day:26},{year:2019,month:'08',day:'04'}],  //所有日历信息
               styl:{paddingLeft:'4px'} //需要修改的css值:margin-top:9px动态构建  公有的样式值padding-left4px
           }
@@ -55,16 +55,20 @@
                 this.isState=false;
                 //遍历所有的option索引值和option的数组下标
                 let optionIndexes =this.activeOptionIndexs;
+                console.log(optionIndexes);
                 //获取select控件集
                 let tempSelectInfors =this.getSelectControls(this.searchControls,3);
+                console.log(tempSelectInfors);
                 //所有需要提交到服务器的option信息
-                let optionVals=[];
+                 let optionVals=[];
                 // 遍历所有的option信息
                 optionIndexes.forEach((curVal,curIndex)=>{
+                    console.log(tempSelectInfors[curIndex])
                     let {options} = tempSelectInfors[curIndex];
                     let {val} =options[curVal];
                     optionVals.push({val});
                 });
+              
                 //获取需要提交到服务器的用户文本框信息
                 console.log(this.nameVal);
             },
