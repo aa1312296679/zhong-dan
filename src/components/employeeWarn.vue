@@ -6,7 +6,7 @@
             <!--信息搜索-->
             <search-infor :inputInfors="searchControls" @onSubmit="submitHandle">
                 <template scope="infors">
-                   <search-control :styl="setStyl(infors.index)" :index="infors.index" :controlInfor="infors.item" :activeOptionIndex="activeOptionIndexs[setSelectIndex(infors.item,infors.index,searchControls)]" :txtVal="'wwl'" @onTxt="txtHandle" @onSelect="selectHandle"></search-control>
+                   <search-control :styl="setStyl(infors.index)" :index="infors.index" :controlInfor="infors.item" :activeOptionIndex="activeOptionIndexs[setSelectIndex(infors.item,infors.index,searchControls)]" :txtVal="{year:2019,month:11,day:26}" @onTxt="txtHandle" @onSelect="selectHandle"></search-control>
                 </template>
             </search-infor>
         </work-wrapper>

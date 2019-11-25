@@ -24,7 +24,7 @@
                 default:0
             },
             txtVal:{ //input输入框的文字信息
-                type:String,
+                type:[String,Object],
                 default:""
             },
             styl:{ //行内样式
@@ -50,7 +50,7 @@
         },
         data(){
             return{
-                curTxtVal:this.txtVal, //当前输入框信息
+                curTxtVal:this.setInputVal(this.controlInfor), //当前输入框信息
                 curSelectVal:"", //当前select信息
                 curIco:"" //日历图标
             }
@@ -118,6 +118,19 @@
                     }
                 }
                 return  -1;
+            },
+            /**
+             * 构建input的value值
+             * @param controType 控件类型
+             */
+            setInputVal({controlType}){
+                if(controlType!==2){
+                    return this.txtVal;
+                }
+
+                console.log(this.txtVal);
+
+                return `${this.txtVal['year']}-${this.txtVal['month']}-${this.txtVal['day']}`;
             }
         }
     }
