@@ -6,7 +6,7 @@
             <!--信息搜索-->
             <search-infor :inputInfors="searchControls" @onSubmit="submitHandle">
                 <template scope="infors">
-                   <search-control :styl="setStyl(infors.index)" :index="infors.index" :controlInfor="infors.item" :activeOptionIndex="activeOptionIndexs[setSelectIndex(infors.item,infors.index,searchControls)]" :txtVal="setCalendarControl(searchControls,searchControls[infors.index],calendarVals,'txt',2)" @onTxt="txtHandle" @onSelect="selectHandle"></search-control>
+                   <search-control :styl="setStyl(infors.index)" :index="infors.index" :controlInfor="infors.item" :activeOptionIndex="0" :txtVal="setCalendarControl(searchControls,searchControls[infors.index],calendarVals,'txt',2)" @onTxt="txtHandle" @onSelect="selectHandle"></search-control>
                 </template>
             </search-infor>
         </work-wrapper>
@@ -42,8 +42,8 @@
           // console.log(index);
 
 
-         let index = this.setCalendarControl(this.searchControls,this.searchControls[2],this.calendarVals,'txt',2)
-         console.log(index);
+         // let index = this.setCalendarControl(this.searchControls,this.searchControls[2],this.calendarVals,'txt',2)
+         // console.log(index);
         },
         methods:{
             closeHandle(){
@@ -63,10 +63,10 @@
                 this.isState=false;
                 //遍历所有的option索引值和option的数组下标
                 let optionIndexes =this.activeOptionIndexs;
-                console.log(optionIndexes);
+
                 //获取select控件集
                 let tempSelectInfors =this.getSelectControls(this.searchControls,3);
-                console.log(tempSelectInfors);
+
                 //所有需要提交到服务器的option信息
                  let optionVals=[];
                 // 遍历所有的option信息
@@ -77,8 +77,12 @@
                     optionVals.push({val});
                 });
 
+                console.log("---option---");
+                console.log(optionVals);
+                console.log("---option---");
+                // console.log(this.calendarVals);
                 //获取需要提交到服务器的用户文本框信息
-                console.log(this.nameVal);
+
             },
             /**
              * 获取指定类型的控件集合
@@ -110,26 +114,6 @@
                 console.log(styl)
                 return  styl;
             },
-            /***
-             * 获取当前select控件基于select控件集中的select控件索引
-             * @param control 控件信息
-             * @param index 控件索引
-             * @param controls 所有控件信息
-             */
-            setSelectIndex(control,index,controls){
-                // 判断当前控件是否为select控件
-                if(control.controlType!==3){
-                    return -1
-                }
-                // 将select类型的控件的控件索引转换为基于select类型数据集的select索引
-                let tempIndex=index;
-                //计算所有不为select控件的控件数量
-                let num = controls.reduce((total,curVal)=>{
-                    return curVal.controlType!==3?++total:total
-                },0);
-                //当前索引-控件缩量
-                return (tempIndex-num);
-            },
             txtHandle(txtVal){
                 this.nameVal=txtVal;
             },
@@ -138,10 +122,20 @@
              * @activeIndex 被点击的select控件索引和select的option索引
              * **/
             selectHandle({componentIndex,optionIndex}){
-                //根据控件索引获取被点击的select控件基于select控件集的索引
-                let selectIndex = this.setSelectIndex(this.searchControls[componentIndex],componentIndex,this.searchControls);
+                console.log(`控件索引${componentIndex}`);
+                console.log(`option索引${optionIndex}`);
+                this.getCalendarControlIndex(this.searchControls,this.searchControls[componentIndex],this.activeOptionIndexs)
+                // console.o
+
+                //根据select控件索引查找option对应的select控件基于select集合的索引
+                // let selectIndex = this.setSelectIndex(this.searchControls[componentIndex],componentIndex,this.searchControls);
+                //
+                // this.getCalendarControlIndex(this.searchControls,)
+                //
+                // console.log(selectIndex);
                 //将已选中的option索引进行更新
-                this.activeOptionIndexs[selectIndex]=optionIndex
+                // this.activeOptionIndexs[selectIndex]=optionIndex
+                // console.log(this.activeOptionIndexs);
             },
             /**
              * 处理日历信息
@@ -161,18 +155,18 @@
              * 获取日历控件索引
              * @param controls 所有控件信息
              * @param curControl 当前控件信息
-             * @param objName 筛选条件，控件属性
-             * @paramc type 控件类型
+             * @param objName 筛选条件，数据属性 根据该属性从指定类型集合中匹配数据索引
+             * @paramc type 控件类型 需要查找的数据类型
              * @return 日历控件基于日历类型控件集的日历索引
              */
             getCalendarControlIndex(controls,curControl,objName,type,calendarControls,sarchIndex=0){
                 let {controlType}=curControl;
                 // 获取需要查找日历索引的日历控件控件文字信息
-                let {txt}=curControl;
+                let tempObjName=curControl[objName];
                 //判断是否为第一次执行
                 if(calendarControls===undefined){
                   // 获取所有的日历类型控件
-                  calendarControls = this.getSelectControls(controls,2);
+                  calendarControls = this.getSelectControls(controls,type);
                 }
 
                 //判断递归查找次数是否已满或当前信息不是要查找的类型
@@ -182,7 +176,7 @@
                 }
 
                 //判断当前控件信息是否要查找的控件信息
-                if(calendarControls[sarchIndex][objName]===txt){
+                if(calendarControls[sarchIndex][objName]===tempObjName){
                     return sarchIndex;
                 }
                //递归次数累加
