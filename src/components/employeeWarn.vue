@@ -18,6 +18,7 @@
     import WorkShopHeader from "components/workShopHeader";
     import SearchInfor from "components/searchInfor";
     import SearchControl from "components/searchControl";
+    import {getControlIndex} from "js/util.js";
     export default {
         name: "employeeWarn",
         data(){
@@ -84,16 +85,6 @@
                 //获取需要提交到服务器的用户文本框信息
 
             },
-            /**
-             * 获取指定类型的控件集合
-             * @param controls 控件综合集
-             * @param searchType 需要查找的控件类型
-             */
-            getSelectControls(controls,searchType){
-                return controls.filter(({controlType})=>{
-                    return controlType===searchType;
-                });
-            },
             /***
              * 动态构建每个元素的左内边距
              * 第二行-第n行每个元素的行内样式
@@ -124,7 +115,7 @@
             selectHandle({componentIndex,optionIndex}){
                 console.log(`控件索引${componentIndex}`);
                 console.log(`option索引${optionIndex}`);
-                this.getCalendarControlIndex(this.searchControls,this.searchControls[componentIndex],this.activeOptionIndexs)
+                // getControlIndex(this.searchControls,this.searchControls[componentIndex],this.activeOptionIndexs)
                 // console.o
 
                 //根据select控件索引查找option对应的select控件基于select集合的索引
@@ -147,42 +138,44 @@
              * @return 日历控件基于日历类型控件集的日历索引
              * */
             setCalendarControl(controls,curControl,calendarVals,objName,objType){
-               let tempIndex=this.getCalendarControlIndex(controls,curControl,objName,objType);
+               let tempIndex=getControlIndex(controls,curControl,objName,objType);
                // 获取日历信息
-               return  (tempIndex!==-1)?calendarVals[tempIndex]:{}
-            },
-            /***
-             * 获取日历控件索引
-             * @param controls 所有控件信息
-             * @param curControl 当前控件信息
-             * @param objName 筛选条件，数据属性 根据该属性从指定类型集合中匹配数据索引
-             * @paramc type 控件类型 需要查找的数据类型
-             * @return 日历控件基于日历类型控件集的日历索引
-             */
-            getCalendarControlIndex(controls,curControl,objName,type,calendarControls,sarchIndex=0){
-                let {controlType}=curControl;
-                // 获取需要查找日历索引的日历控件控件文字信息
-                let tempObjName=curControl[objName];
-                //判断是否为第一次执行
-                if(calendarControls===undefined){
-                  // 获取所有的日历类型控件
-                  calendarControls = this.getSelectControls(controls,type);
-                }
-
-                //判断递归查找次数是否已满或当前信息不是要查找的类型
-                if((controlType!==type)||sarchIndex===calendarControls.length){
-                    sarchIndex=-1;
-                    return sarchIndex;
-                }
-
-                //判断当前控件信息是否要查找的控件信息
-                if(calendarControls[sarchIndex][objName]===tempObjName){
-                    return sarchIndex;
-                }
-               //递归次数累加
-               sarchIndex++;
-               return this.getCalendarControlIndex(controls,curControl,objName,type,calendarControls,sarchIndex);
+               return  (tempIndex!==-1)?calendarVals[tempIndex]:{};
             }
+            // /***
+            //  * 查找控件基于指定类型的控件集中的控件索引
+            //  * @param controls 所有控件信息
+            //  * @param curControl 当前控件信息
+            //  * @param objName 筛选条件，数据属性 根据该属性从指定类型集合中匹配数据索引
+            //  * @paramc type 控件类型 需要查找数据索引的控件类型
+            //  * @param typeControls 指定类型的控件集合
+            //  * @param sarchIndex 控件基于指定类型的控件集中的控件索引，默认为0
+            //  * @return sarchIndex {Number} 控件基于指定类型的控件集中的控件索引
+            //  */
+            // getControlIndex(controls,curControl,objName,type,typeControls,sarchIndex=0){
+            //     let {controlType}=curControl;
+            //     // 获取需要查找日历索引的日历控件控件文字信息
+            //     let tempObjName=curControl[objName];
+            //     //判断是否为第一次执行
+            //     if(typeControls===undefined){
+            //       // 获取所有的日历类型控件
+            //         typeControls = getTypeControls(controls,type);
+            //     }
+            //
+            //     //判断递归查找次数是否已满或当前信息不是要查找的类型
+            //     if((controlType!==type)||sarchIndex===typeControls.length){
+            //         sarchIndex=-1;
+            //         return sarchIndex;
+            //     }
+            //
+            //     //判断当前控件信息是否要查找的控件信息
+            //     if(typeControls[sarchIndex][objName]===tempObjName){
+            //         return sarchIndex;
+            //     }
+            //    //递归次数累加
+            //    sarchIndex++;
+            //    return this.getControlIndex(controls,curControl,objName,type,typeControls,sarchIndex);
+            // }
         },
         components: {SearchControl ,SearchInfor, WorkShopHeader, WorkWrapper}
     }
