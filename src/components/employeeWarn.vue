@@ -18,7 +18,7 @@
     import WorkShopHeader from "components/workShopHeader";
     import SearchInfor from "components/searchInfor";
     import SearchControl from "components/searchControl";
-    import {getControlIndex} from "js/util.js";
+    import {getControlIndex,getTypeControls} from "js/util.js";
     export default {
         name: "employeeWarn",
         data(){
@@ -64,16 +64,15 @@
                 this.isState=false;
                 //遍历所有的option索引值和option的数组下标
                 let optionIndexes =this.activeOptionIndexs;
-
                 //获取select控件集
-                let tempSelectInfors =this.getSelectControls(this.searchControls,3);
-
+                let tempSelectInfors = getTypeControls(this.searchControls,3);
                 //所有需要提交到服务器的option信息
                  let optionVals=[];
-                // 遍历所有的option信息
+                // 遍历所有被选中的option索引
                 optionIndexes.forEach((curVal,curIndex)=>{
-                    console.log(tempSelectInfors[curIndex])
+                    //获取当前option索引集的key找到对应的Option集合
                     let {options} = tempSelectInfors[curIndex];
+                    //通过的option索引值找到对应的option的val值
                     let {val} =options[curVal];
                     optionVals.push({val});
                 });
@@ -105,6 +104,9 @@
                 console.log(styl)
                 return  styl;
             },
+            /***
+             * 处理select信息
+             **/
             txtHandle(txtVal){
                 this.nameVal=txtVal;
             },
@@ -113,20 +115,17 @@
              * @activeIndex 被点击的select控件索引和select的option索引
              * **/
             selectHandle({componentIndex,optionIndex}){
-                console.log(`控件索引${componentIndex}`);
-                console.log(`option索引${optionIndex}`);
-                // getControlIndex(this.searchControls,this.searchControls[componentIndex],this.activeOptionIndexs)
-                // console.o
-
-                //根据select控件索引查找option对应的select控件基于select集合的索引
-                // let selectIndex = this.setSelectIndex(this.searchControls[componentIndex],componentIndex,this.searchControls);
-                //
-                // this.getCalendarControlIndex(this.searchControls,)
-                //
-                // console.log(selectIndex);
-                //将已选中的option索引进行更新
-                // this.activeOptionIndexs[selectIndex]=optionIndex
-                // console.log(this.activeOptionIndexs);
+                //获取触发option切换的select控件信息
+                let tempControl=this.searchControls[componentIndex];
+                //所有类型的控件信息
+                let controls=this.searchControls;
+                //数据筛选条件
+                let objName="txt";
+                //控件类型
+                let controlType=3;
+                //select控件基于select集的索引
+                let activeOtionIndex=getControlIndex(controls,tempControl,objName,controlType);
+                this.activeOptionIndexs[activeOtionIndex]=optionIndex;
             },
             /**
              * 处理日历信息
@@ -142,40 +141,7 @@
                // 获取日历信息
                return  (tempIndex!==-1)?calendarVals[tempIndex]:{};
             }
-            // /***
-            //  * 查找控件基于指定类型的控件集中的控件索引
-            //  * @param controls 所有控件信息
-            //  * @param curControl 当前控件信息
-            //  * @param objName 筛选条件，数据属性 根据该属性从指定类型集合中匹配数据索引
-            //  * @paramc type 控件类型 需要查找数据索引的控件类型
-            //  * @param typeControls 指定类型的控件集合
-            //  * @param sarchIndex 控件基于指定类型的控件集中的控件索引，默认为0
-            //  * @return sarchIndex {Number} 控件基于指定类型的控件集中的控件索引
-            //  */
-            // getControlIndex(controls,curControl,objName,type,typeControls,sarchIndex=0){
-            //     let {controlType}=curControl;
-            //     // 获取需要查找日历索引的日历控件控件文字信息
-            //     let tempObjName=curControl[objName];
-            //     //判断是否为第一次执行
-            //     if(typeControls===undefined){
-            //       // 获取所有的日历类型控件
-            //         typeControls = getTypeControls(controls,type);
-            //     }
-            //
-            //     //判断递归查找次数是否已满或当前信息不是要查找的类型
-            //     if((controlType!==type)||sarchIndex===typeControls.length){
-            //         sarchIndex=-1;
-            //         return sarchIndex;
-            //     }
-            //
-            //     //判断当前控件信息是否要查找的控件信息
-            //     if(typeControls[sarchIndex][objName]===tempObjName){
-            //         return sarchIndex;
-            //     }
-            //    //递归次数累加
-            //    sarchIndex++;
-            //    return this.getControlIndex(controls,curControl,objName,type,typeControls,sarchIndex);
-            // }
+
         },
         components: {SearchControl ,SearchInfor, WorkShopHeader, WorkWrapper}
     }
