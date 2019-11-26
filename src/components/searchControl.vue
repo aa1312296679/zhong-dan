@@ -169,6 +169,8 @@
         text-indent 6px
     .input_calendar
         width 160px
+        padding-left: 22px
+        line-height: 33px
     .input_select
         appearance: none
         -moz-appearance: none
