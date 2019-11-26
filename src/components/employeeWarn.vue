@@ -38,14 +38,6 @@
               styl:{paddingLeft:'4px'} //需要修改的css值:margin-top:9px动态构建  公有的样式值padding-left4px
           }
         },
-        created(){
-          // let index=this.getCalendarControlIndex(this.searchControls,this.searchControls[2],'txt',2);
-          // console.log(index);
-
-
-         // let index = this.setCalendarControl(this.searchControls,this.searchControls[2],this.calendarVals,'txt',2)
-         // console.log(index);
-        },
         methods:{
             closeHandle(){
                 this.$emit("onClose");
@@ -77,12 +69,10 @@
                     optionVals.push({val});
                 });
 
-                console.log("---option---");
+                console.log("---需要提交至服务器的option信息---");
                 console.log(optionVals);
-                console.log("---option---");
-                // console.log(this.calendarVals);
-                //获取需要提交到服务器的用户文本框信息
-
+                console.log("---需要提交到服务器的日历信息--")
+                console.log(this.calendarVals);
             },
             /***
              * 动态构建每个元素的左内边距
