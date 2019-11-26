@@ -10,6 +10,11 @@
                 </template>
             </search-infor>
             <list :titles="workTitles" :contents="workContents"></list>
+            <!--底部分页页码-->
+            <div class="zpageNav_wrapper">
+                <zpage-nav v-bind:page="page" v-bind:page-size="pageSize" v-bind:total="total"
+                           v-bind:max-page="maxPage"  v-on:pagehandler="pageHandler"></zpage-nav>
+            </div>
         </work-wrapper>
     </div>
 </template>
@@ -20,6 +25,7 @@
     import SearchInfor from "components/searchInfor";
     import SearchControl from "components/searchControl";
     import List from "components/list";
+    import ZpageNav from "components/zpageNav";
     import {getControlIndex,getTypeControls} from "js/util.js";
 
     export default {
@@ -59,10 +65,23 @@
               isState:true, //提交状态 true允许提交 false禁止提交 ajax提交但数据未成功时false，ajax提交并提交成功时true
               activeOptionIndexs:[0,1], //所有被选中的option索引 暂时假设所有控件都用第一个Option索引
               calendarVals:[{year:2019,month:11,day:26},{year:2019,month:'08',day:'04'}],  //所有日历信息
-              styl:{paddingLeft:'4px'} //需要修改的css值:margin-top:9px动态构建  公有的样式值padding-left4px
+              styl:{paddingLeft:'4px'}, //需要修改的css值:margin-top:9px动态构建  公有的样式值padding-left4px
+              page: 1,  //显示的是哪一页
+              pageSize: 10, //每一页显示的数据条数
+              total: 150, //记录总数
+              maxPage:9  //最大页数
           }
         },
+        created(){
+            //created  表示页面加载完毕，立即执行
+            this.pageHandler(1);
+        },
         methods:{
+            //pagehandler方法 跳转到page页
+            pageHandler: function (page) {
+                //here you can do custom state update
+                this.page = page;
+            },
             closeHandle(){
                 this.$emit("onClose");
             },
@@ -155,9 +174,8 @@
                // 获取日历信息
                return  (tempIndex!==-1)?calendarVals[tempIndex]:{};
             }
-
         },
-        components: {List, SearchControl ,SearchInfor, WorkShopHeader, WorkWrapper}
+        components: {ZpageNav, List, SearchControl ,SearchInfor, WorkShopHeader, WorkWrapper}
     }
 </script>
 
@@ -177,6 +195,9 @@
         width 691px
         margin-top 6px
         max-height 80%
+    .zpageNav_wrapper
+         border 1px dashed red
+         width 100%
     .searchInfor
      >>> .left
           width 685px
