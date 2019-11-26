@@ -43,7 +43,7 @@
     overflow hidden
     .list_content
         &:nth-child(odd)
-            background rgba(7, 45, 84, 0.5);
-        &:nth-child(even)
             background rgba(7, 45, 84, 0);
+        &:nth-child(even)
+            background rgba(7, 45, 84, 0.5);
 </style>

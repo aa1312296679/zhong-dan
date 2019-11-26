@@ -9,6 +9,7 @@
                    <search-control :styl="setStyl(infors.index)" :index="infors.index" :controlInfor="infors.item" :activeOptionIndex="0" :txtVal="setCalendarControl(searchControls,searchControls[infors.index],calendarVals,'txt',2)" @onTxt="txtHandle" @onSelect="selectHandle"></search-control>
                 </template>
             </search-infor>
+            <list :titles="workTitles" :contents="workContents"></list>
         </work-wrapper>
     </div>
 </template>
@@ -18,7 +19,9 @@
     import WorkShopHeader from "components/workShopHeader";
     import SearchInfor from "components/searchInfor";
     import SearchControl from "components/searchControl";
+    import List from "components/list";
     import {getControlIndex,getTypeControls} from "js/util.js";
+
     export default {
         name: "employeeWarn",
         data(){
@@ -31,6 +34,27 @@
                   {txt:"开始时间",controlType:2,ico:"/img/table-calendar-icon.png",options:[{txt:"生产部1",val:0},{txt:"生产部2",val:1}]},
                   {txt:"结束时间",controlType:2,ico:"/img/table-calendar-icon.png",options:[{txt:"外协1",val:0},{txt:"外协2",val:1}]},
                   {txt:"状态",controlType:3,options:[{txt:"已处理",val:0},{txt:"未处理",val:1}]}
+              ],
+              workTitles:[  // 列表头信息
+                  {txt:"序号",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}},
+                  {txt:"告警类型",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}},
+                  {txt:"告警时间",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}},
+                  {txt:"区域",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}},
+                  {txt:"人员",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}},
+                  {txt:"状态",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}},
+                  {txt:"处理类型",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}},
+                  {txt:"操作",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}}
+              ],
+              workContents:[ // 列表内容信息
+                  {index:1,catId:12122,name:"张三",sex:'男',age:25,unit:'中丹化工',department:'生产部',ico:"/img/look-trail-btn.png",activeIco:"/img/look-trail-btn-highlight.png"},
+                  {index:2,catId:23335,name:"李四",sex:'男',age:27,unit:'中丹化工',department:'生产部',ico:"/img/look-trail-btn.png",activeIco:"/img/look-trail-btn-highlight.png"},
+                  {index:3,catId:23335,name:"李四",sex:'男',age:27,unit:'中丹化工',department:'生产部',ico:"/img/look-trail-btn.png",activeIco:"/img/look-trail-btn-highlight.png"},
+                  {index:4,catId:12122,name:"张三",sex:'男',age:25,unit:'中丹化工',department:'生产部',ico:"/img/look-trail-btn.png",activeIco:"/img/look-trail-btn-highlight.png"},
+                  {index:5,catId:23335,name:"李四",sex:'男',age:27,unit:'中丹化工',department:'生产部',ico:"/img/look-trail-btn.png",activeIco:"/img/look-trail-btn-highlight.png"},
+                  {index:6,catId:23335,name:"李四",sex:'男',age:27,unit:'中丹化工',department:'生产部',ico:"/img/look-trail-btn.png",activeIco:"/img/look-trail-btn-highlight.png"},
+                  {index:7,catId:12122,name:"张三",sex:'男',age:25,unit:'中丹化工',department:'生产部',ico:"/img/look-trail-btn.png",activeIco:"/img/look-trail-btn-highlight.png"},
+                  {index:8,catId:23335,name:"李四",sex:'男',age:27,unit:'中丹化工',department:'生产部',ico:"/img/look-trail-btn.png",activeIco:"/img/look-trail-btn-highlight.png"},
+                  {index:9,catId:23335,name:"李四",sex:'男',age:27,unit:'中丹化工',department:'生产部',ico:"/img/look-trail-btn.png",activeIco:"/img/look-trail-btn-highlight.png"}
               ],
               isState:true, //提交状态 true允许提交 false禁止提交 ajax提交但数据未成功时false，ajax提交并提交成功时true
               activeOptionIndexs:[0,1], //所有被选中的option索引 暂时假设所有控件都用第一个Option索引
@@ -133,7 +157,7 @@
             }
 
         },
-        components: {SearchControl ,SearchInfor, WorkShopHeader, WorkWrapper}
+        components: {List, SearchControl ,SearchInfor, WorkShopHeader, WorkWrapper}
     }
 </script>
 
@@ -149,11 +173,14 @@
     transition: ease-in-out 0.3s
     box-shadow: -2px 0px 2px rgba(79, 173, 233, 0.6) inset, 0px -2px 2px rgba(79, 173, 233, 0.6) inset, 2px 0px 2px rgba(79, 173, 233, 0.6) inset, 0px 2px 2px rgba(79, 173, 233, 0.6) inset
     position relative
+    .list
+        width 691px
+        margin-top 6px
+        max-height 80%
     .searchInfor
      >>> .left
           width 685px
           height auto
-          background red
          .searchControl
             padding-right 0px
             >>> .title_txt
