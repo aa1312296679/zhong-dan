@@ -3,7 +3,10 @@
             <ul class="page-ul">
                 <li v-bind:key="index" v-for="(item,index) in pageList" v-bind:class ="item.class" @click.stop="setPage(item)" v-html="item.html"></li>
                </ul>
-            <span class="total">共 {{total}} 条</span>
+            <div class="page_total">
+                <span class="total">共 <span class="number_highlight">{{total}}</span> 条</span>
+                <span class="total">每页 <span class="number_highlight">{{total}}</span> 条</span>
+            </div>
          </div>
 </template>
 
