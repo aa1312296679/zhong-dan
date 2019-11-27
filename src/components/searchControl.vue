@@ -4,7 +4,7 @@
        <!--文本输入框或日历选项输入框-->
        <input v-if="(controlInfor.controlType===1)||(controlInfor.controlType===2)" :disabled="isDisabled" :class="inputClass" v-model="curTxtVal"/>
        <!--下拉框-->
-       <select v-if="controlInfor.controlType===3" class="input_select" v-model="curSelectVal">
+       <select v-if="controlInfor.controlType===3" class="input_select" :style="setSelectStyl(controlInfor)" v-model="curSelectVal">
            <option :key="key" v-for="(item,key) in controlInfor.options" :selected="selectedOption(key,activeOptionIndex)" :value="item.val">&nbsp;{{item.txt}}</option>
        </select>
        <img v-if="controlInfor.controlType===2" class="ico" :src="curIco">
@@ -128,9 +128,16 @@
                     return this.txtVal;
                 }
 
-                console.log(this.txtVal);
-
                 return `${this.txtVal['year']}-${this.txtVal['month']}-${this.txtVal['day']}`;
+            },
+            /**
+             * 构建select的行内样式
+             */
+            setSelectStyl({controlType,styl}){
+               if(controlType!==3||!styl){
+                   return {};
+               }
+               return styl
             }
         }
     }

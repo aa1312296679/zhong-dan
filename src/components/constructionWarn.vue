@@ -35,10 +35,11 @@
               workWrapperStyl:{width:'100.9%',height:'101.2%',left:'-3.4px',top:'-3.6px'},
               // 搜索控件
               searchControls:[
-                  {txt:"警告类型",controlType:3,options:[{txt:"人员滞留1",val:0},{txt:"人员滞留2",val:1}]},
+                  {txt:"施工状态",controlType:3,options:[{txt:"进行中",val:0}]},
+                  {txt:"施工单位",controlType:3,options:[{txt:"生产部",val:0}],styl:{width: '160px',backgroundPosition:'141px center'}},
+                  {txt:"施工类别",controlType:3,options:[{txt:"场内施工",val:0}]},
                   {txt:"开始时间",controlType:2,ico:"/img/table-calendar-icon.png",options:[{txt:"生产部1",val:0},{txt:"生产部2",val:1}]},
-                  {txt:"结束时间",controlType:2,ico:"/img/table-calendar-icon.png",options:[{txt:"外协1",val:0},{txt:"外协2",val:1}]},
-                  {txt:"状态",controlType:3,options:[{txt:"已处理",val:0},{txt:"未处理",val:1}]}
+                  {txt:"结束时间",controlType:2,ico:"/img/table-calendar-icon.png",options:[{txt:"外协1",val:0},{txt:"外协2",val:1}]}
               ],
               workTitles:[  // 列表头信息
                   {txt:"序号",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}},
