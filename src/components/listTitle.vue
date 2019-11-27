@@ -34,7 +34,10 @@
         },
         computed: {
             itemWidth(){
-                return  (this.maxWidth/this.rowsCount).toFixed(2);
+                let curWidth = this.maxWidth/this.rowsCount;
+                curWidth = (Math.floor(curWidth*100)/100);
+
+                return  curWidth;
             }
         }
 

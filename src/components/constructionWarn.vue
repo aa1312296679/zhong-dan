@@ -36,6 +36,7 @@
               // 搜索控件
               searchControls:[
                   {txt:"施工状态",controlType:3,options:[{txt:"进行中",val:0}]},
+                  {txt:"姓名",controlType:1,styl:{width: '160px'}},
                   {txt:"施工单位",controlType:3,options:[{txt:"生产部",val:0}],styl:{width: '160px',backgroundPosition:'141px center'}},
                   {txt:"施工类别",controlType:3,options:[{txt:"场内施工",val:0}]},
                   {txt:"开始时间",controlType:2,ico:"/img/table-calendar-icon.png",options:[{txt:"生产部1",val:0},{txt:"生产部2",val:1}]},
@@ -43,12 +44,11 @@
               ],
               workTitles:[  // 列表头信息
                   {txt:"序号",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}},
-                  {txt:"告警类型",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}},
-                  {txt:"告警时间",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}},
-                  {txt:"区域",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}},
-                  {txt:"人员",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}},
-                  {txt:"状态",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}},
-                  {txt:"处理类型",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}},
+                  {txt:"施工地点",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}},
+                  {txt:"项目名称",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}},
+                  {txt:"施工单位",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}},
+                  {txt:"施工类型",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}},
+                  {txt:"施工状态",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}},
                   {txt:"操作",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}}
               ],
               workContents:[ // 列表内容信息
@@ -57,14 +57,12 @@
                   {index:3,catId:23335,name:"李四",sex:'男',age:27,unit:'中丹化工',department:'生产部',ico:"/img/look-trail-btn.png",activeIco:"/img/look-trail-btn-highlight.png"},
                   {index:4,catId:12122,name:"张三",sex:'男',age:25,unit:'中丹化工',department:'生产部',ico:"/img/look-trail-btn.png",activeIco:"/img/look-trail-btn-highlight.png"},
                   {index:5,catId:23335,name:"李四",sex:'男',age:27,unit:'中丹化工',department:'生产部',ico:"/img/look-trail-btn.png",activeIco:"/img/look-trail-btn-highlight.png"},
-                  {index:6,catId:23335,name:"李四",sex:'男',age:27,unit:'中丹化工',department:'生产部',ico:"/img/look-trail-btn.png",activeIco:"/img/look-trail-btn-highlight.png"},
-                  {index:7,catId:12122,name:"张三",sex:'男',age:25,unit:'中丹化工',department:'生产部',ico:"/img/look-trail-btn.png",activeIco:"/img/look-trail-btn-highlight.png"},
-                  {index:8,catId:23335,name:"李四",sex:'男',age:27,unit:'中丹化工',department:'生产部',ico:"/img/look-trail-btn.png",activeIco:"/img/look-trail-btn-highlight.png"},
-                  {index:9,catId:23335,name:"李四",sex:'男',age:27,unit:'中丹化工',department:'生产部',ico:"/img/look-trail-btn.png",activeIco:"/img/look-trail-btn-highlight.png"}
+                  {index:6,catId:23335,name:"李四",sex:'男',age:27,unit:'中丹化工',department:'生产部',ico:"/img/look-trail-btn.png",activeIco:"/img/look-trail-btn-highlight.png"}
               ],
               isState:true, //提交状态 true允许提交 false禁止提交 ajax提交但数据未成功时false，ajax提交并提交成功时true
               activeOptionIndexs:[0,1], //所有被选中的option索引 暂时假设所有控件都用第一个Option索引
               calendarVals:[{year:2019,month:11,day:26},{year:2019,month:'08',day:'04'}],  //所有日历信息
+              nameValue:"", //姓名
               styl:{paddingLeft:'4px'}, //需要修改的css值:margin-top:9px动态构建  公有的样式值padding-left4px
               page: 1,  //显示的是哪一页
               pageSize: 12, //每一页显示的数据条数
@@ -173,8 +171,18 @@
              * */
             setCalendarControl(controls,curControl,calendarVals,objName,objType){
                let tempIndex=getControlIndex(controls,curControl,objName,objType);
-               // 获取日历信息
-               return  (tempIndex!==-1)?calendarVals[tempIndex]:{};
+               //控件类型
+               let {curControlType} =curControl;
+                // 控件类型为日历类型并已找到日历控件对应的日历信息
+                if((tempIndex!==-1)){
+                   return  calendarVals[tempIndex]
+                // 控件类型为日历类型但日历信息未找到
+                }else if((tempIndex===-1)&&(curControlType===2)){
+                    let temp = {year:'',month:'',day:''};
+                    return temp;
+                }
+                // 控件类型不是日历类型并且控件类型为文本框
+               return  this.nameValue;
             }
         },
         components: {ZpageNav, List, SearchControl ,SearchInfor, WorkShopHeader, WorkWrapper}
@@ -184,7 +192,7 @@
 <style lang="stylus" scoped>
 .employee_warn
     width 740px
-    height 590px
+    height 491.6px
     float right
     margin-top 50px
     margin-right 20px
@@ -199,7 +207,8 @@
         max-height 80%
     .zpageNav_wrapper
          border 1px dashed red
-         width 100%
+         width 98%
+         margin 0 auto
     .searchInfor
      >>> .left
           width 685px
