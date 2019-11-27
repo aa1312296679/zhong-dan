@@ -60,17 +60,21 @@ const getControlIndex = (controls,curControl,objName,type,typeControls,sarchInde
     return getControlIndex(controls,curControl,objName,type,typeControls,sarchIndex);
 }
 
-// 车间工作信息组件
+// 车间工作信息
 const workShopList = () => import("components/workshopList");
-// 员工信息组件
+// 员工信息
 const emplyeeInfor = () => import("components/employeeInfor");
-// 人员定位警告组件
+// 人员定位警告
 const employeeWarn = () => import("components/employeeWarn");
+// 施工警告管理
+const constructionWarn = ()=> import("components/constructionWarn");
+
 export {
     mouseTypies,
     workShopList,
     emplyeeInfor,
     employeeWarn,
     getTypeControls,
-    getControlIndex
+    getControlIndex,
+    constructionWarn
 }
