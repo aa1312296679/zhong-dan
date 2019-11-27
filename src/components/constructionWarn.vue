@@ -114,8 +114,10 @@
 
                 console.log("---需要提交至服务器的option信息---");
                 console.log(optionVals);
-                console.log("---需要提交到服务器的日历信息--")
+                console.log("---需要提交到服务器的日历信息--");
                 console.log(this.calendarVals);
+                console.log("-----需要提交到服务器的姓名---");
+                console.log(this.nameVal);
             },
             /***
              * 动态构建每个元素的左内边距
@@ -138,7 +140,7 @@
                 return  styl;
             },
             /***
-             * 处理select信息
+             * 处理inputTxt信息
              **/
             txtHandle(txtVal){
                 this.nameVal=txtVal;
