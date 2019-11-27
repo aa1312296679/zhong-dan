@@ -12,8 +12,7 @@
             <list :titles="workTitles" :contents="workContents"></list>
             <!--底部分页页码-->
             <div class="zpageNav_wrapper">
-                <zpage-nav v-bind:page="page" v-bind:page-size="pageSize" v-bind:total="total"
-                           v-bind:max-page="maxPage"  v-on:pagehandler="pageHandler"></zpage-nav>
+                <zpage-nav :curPage="page" :page-size="pageSize" :total="total" :max-page="maxPage"  :prevHtml="prev" :nextHtml="next" :pagehandler="pageHandler"></zpage-nav>
             </div>
         </work-wrapper>
     </div>
@@ -67,9 +66,11 @@
               calendarVals:[{year:2019,month:11,day:26},{year:2019,month:'08',day:'04'}],  //所有日历信息
               styl:{paddingLeft:'4px'}, //需要修改的css值:margin-top:9px动态构建  公有的样式值padding-left4px
               page: 1,  //显示的是哪一页
-              pageSize: 9, //每一页显示的数据条数
-              total: 45, //记录总数
-              maxPage:5  //最大页数
+              pageSize: 12, //每一页显示的数据条数
+              total: 108, //记录总数
+              maxPage:96, //最大页数
+              prev:'<<',
+              next:'>>'
           }
         },
         created(){
