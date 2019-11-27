@@ -67,9 +67,9 @@
               calendarVals:[{year:2019,month:11,day:26},{year:2019,month:'08',day:'04'}],  //所有日历信息
               styl:{paddingLeft:'4px'}, //需要修改的css值:margin-top:9px动态构建  公有的样式值padding-left4px
               page: 1,  //显示的是哪一页
-              pageSize: 10, //每一页显示的数据条数
-              total: 150, //记录总数
-              maxPage:9  //最大页数
+              pageSize: 9, //每一页显示的数据条数
+              total: 45, //记录总数
+              maxPage:5  //最大页数
           }
         },
         created(){
