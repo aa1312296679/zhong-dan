@@ -67,7 +67,9 @@ const emplyeeInfor = () => import("components/employeeInfor");
 // 人员定位警告
 const employeeWarn = () => import("components/employeeWarn");
 // 施工警告管理
-const constructionWarn = ()=> import("components/constructionWarn");
+const constructionWarn = () => import("components/constructionWarn");
+// 巡检管理
+const Inspection = () => import("components/Inspection");
 
 export {
     mouseTypies,
@@ -76,5 +78,6 @@ export {
     employeeWarn,
     getTypeControls,
     getControlIndex,
-    constructionWarn
+    constructionWarn,
+    Inspection
 }
