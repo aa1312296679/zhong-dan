@@ -87,6 +87,8 @@ const Inspection = () => import("components/Inspection");
 const entryAndExits = () => import("components/entryAndExit");
 //风险管控
 const riskManagement = () => import("components/riskManagement");
+//车间检查
+const workshopInspection = () => import("components/workshopInspection");
 
 export {
     mouseTypies,
@@ -99,5 +101,6 @@ export {
     Inspection,
     lisrContentMouse,
     entryAndExits,
-    riskManagement
+    riskManagement,
+    workshopInspection
 }

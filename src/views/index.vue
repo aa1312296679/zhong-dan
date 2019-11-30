@@ -16,7 +16,7 @@ import HHeader from "components/header";
 import search from "components/search";
 import menuTab from "components/menuTab";
 import menuSlideBar from "components/menuSlideBar";
-import { workShopList, emplyeeInfor, employeeWarn, constructionWarn, Inspection, entryAndExits, riskManagement } from "js/util.js";
+import { workShopList, emplyeeInfor, employeeWarn, constructionWarn, Inspection, entryAndExits, riskManagement,workshopInspection } from "js/util.js";
 export default {
   name: "index",
   data(){
@@ -84,7 +84,7 @@ export default {
             {
                 img:"/img/5s-fuzhujianguan-icon.png",
                 txt:"5S辅助监管",
-                children:[{text:"5S车间在岗管理"},{text:"5S辅助检查"},{text:"5S车间换班检查"},{text:"5S辅助考核"}]
+                children:[{text:"5S车间在岗管理",component:workshopInspection},{text:"5S辅助检查"},{text:"5S车间换班检查"},{text:"5S辅助考核"}]
             },
             {
                 img:"/img/fengxian-icon.png",
