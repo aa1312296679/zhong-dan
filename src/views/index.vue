@@ -16,7 +16,7 @@ import HHeader from "components/header";
 import search from "components/search";
 import menuTab from "components/menuTab";
 import menuSlideBar from "components/menuSlideBar";
-import { workShopList, emplyeeInfor, employeeWarn, constructionWarn, Inspection } from "js/util.js";
+import { workShopList, emplyeeInfor, employeeWarn, constructionWarn, Inspection, entryAndExits } from "js/util.js";
 export default {
   name: "index",
   data(){
@@ -71,7 +71,7 @@ export default {
                         text:"人员信息管理",
                         component:emplyeeInfor
                     },
-                    {text:"人员进出管理"},
+                    {text:"人员进出管理",component:entryAndExits},
                     {
                         text:"人员定位管理",
                         component:workShopList

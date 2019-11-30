@@ -31,7 +31,7 @@
         created() {
             // 临时测试代码 开发完需删除
             this.setIndex(0,2);
-            this.menuTwoHandle(5);
+            this.menuTwoHandle(1);
            //重置更新一级数据信息项中项
            // this.initialIndex("one");
            //重置更新二级数据信息选中项
