@@ -85,7 +85,8 @@ const constructionWarn = () => import("components/constructionWarn");
 const Inspection = () => import("components/Inspection");
 //人员进出管理
 const entryAndExits = () => import("components/entryAndExit");
-
+//风险管控
+const riskManagement = () => import("components/riskManagement");
 
 export {
     mouseTypies,
@@ -97,5 +98,6 @@ export {
     constructionWarn,
     Inspection,
     lisrContentMouse,
-    entryAndExits
+    entryAndExits,
+    riskManagement
 }

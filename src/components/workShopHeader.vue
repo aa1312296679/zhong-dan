@@ -55,7 +55,7 @@
         .ico_img
           display block
           width 17px
-          height 17px
+          height 20px
           margin-bottom 13.5px
         .ico_txt
             padding: 0 10px 0 10px

@@ -30,7 +30,7 @@
         },
         created() {
             // 临时测试代码 开发完需删除
-            this.setIndex(0,2);
+            this.setIndex(0,4);
             this.menuTwoHandle(1);
            //重置更新一级数据信息项中项
            // this.initialIndex("one");

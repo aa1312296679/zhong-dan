@@ -16,7 +16,7 @@ import HHeader from "components/header";
 import search from "components/search";
 import menuTab from "components/menuTab";
 import menuSlideBar from "components/menuSlideBar";
-import { workShopList, emplyeeInfor, employeeWarn, constructionWarn, Inspection, entryAndExits } from "js/util.js";
+import { workShopList, emplyeeInfor, employeeWarn, constructionWarn, Inspection, entryAndExits, riskManagement } from "js/util.js";
 export default {
   name: "index",
   data(){
@@ -89,7 +89,7 @@ export default {
             {
                 img:"/img/fengxian-icon.png",
                 txt:"风险监管",
-                children:[{text:"风险管控"},{text:"重大危险源管控"},{text:"安全风险分区"}]
+                children:[{text:"风险管控"},{text:"重大危险源管控",component:riskManagement},{text:"安全风险分区"}]
             },
             {
                 img:"/img/houtaiguanli-icon.png",

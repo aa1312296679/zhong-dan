@@ -2,8 +2,6 @@
     <div class="entry_exit">
         <div class="entry_exit_content">
             <div class="title">{{title}}</div>
-            <!---->
-
             <template v-for="(item,index) in contentInfors">
                 <entry-and-exit-content :contentInfor="item" :key="`$entryAndExit${index}`"></entry-and-exit-content>
             </template>
