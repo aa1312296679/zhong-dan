@@ -1,5 +1,5 @@
 /***
- * 鼠标类型
+ * 一级列表漂浮鼠标漂浮处理
  * **/
 let mouseTypies = {
     mouseOver(index){
@@ -60,6 +60,19 @@ const getControlIndex = (controls,curControl,objName,type,typeControls,sarchInde
     return getControlIndex(controls,curControl,objName,type,typeControls,sarchIndex);
 }
 
+/**
+ * listContent组件鼠标漂浮处理
+ */
+const lisrContentMouse = {
+    over(){
+      console.log(this);
+      this.isMouse=true;
+    },
+    out(){
+        this.isMouse=false;
+    }
+}
+
 // 车间工作信息
 const workShopList = () => import("components/workshopList");
 // 员工信息
@@ -79,5 +92,6 @@ export {
     getTypeControls,
     getControlIndex,
     constructionWarn,
-    Inspection
+    Inspection,
+    lisrContentMouse
 }

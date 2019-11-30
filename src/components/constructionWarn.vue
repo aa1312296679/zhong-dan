@@ -73,13 +73,13 @@
           }
         },
         created(){
-            //created  表示页面加载完毕，立即执行
             this.pageHandler(1);
         },
         methods:{
-            //pagehandler方法 跳转到page页
+            /**
+             * 页面跳转处理
+             * **/
             pageHandler: function (page) {
-                //here you can do custom state update
                 this.page = page;
             },
             closeHandle(){

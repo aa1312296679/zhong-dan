@@ -52,13 +52,13 @@
             return{
                 curTxtVal:this.setInputVal(this.controlInfor), //当前输入框信息
                 curSelectVal:"", //当前select信息
-                curIco:"" //
+                curIco:""
             }
         },
         created() {
             //curIco 日历的图标信息初始化
             let {ico}=this.controlInfor;
-            this.curIco=ico;2
+            this.curIco=ico;
             if(!this.controlInfor.options){
                 return false;
             }
