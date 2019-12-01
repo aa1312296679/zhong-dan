@@ -3,6 +3,16 @@
         <work-wrapper :stylObj="workWrapperStyl">
             <!--头部信息-->
             <work-shop-header :infor="getHeaderInfor(0)" @onClose="closeHandle"></work-shop-header>
+            <!--车间详情内容-->
+            <!--名称-->
+            <template v-for="(item,index) in testInfor">
+                <WorkshopDetailsContent :key="`worksshopDetails${index}`" :infor="item"></WorkshopDetailsContent>
+            </template>
+
+            <!--人员-->
+
+            <!--人员进出次数-->
+            <!--评分--->
         </work-wrapper>
     </div>
 </template>
@@ -10,13 +20,19 @@
 <script>
     import WorkWrapper from "components/workWrapper";
     import WorkShopHeader from "components/workShopHeader";
-
+    import WorkshopDetailsContent from "components/WorkshopDetailsContent"
     import {getControlIndex,getTypeControls} from "js/util.js";
 
     export default {
         name: "employeeWarn",
         data(){
           return {
+              testInfor:[
+                  {txtLeft:"车间名称",txtChildren:["乙车间"]},
+                  {txtLeft:"车间名称",txtChildren:["汪驲、李梦凡、周杰、王伟、刘旭张旭升、谢天宝、田曾、李虎、赵山汪驲、汪驲、汪驲、汪驲、汪驲汪驲、汪驲、汪驲"]},
+                  {txtLeft:"车间名称",txtChildren:["乙车间"]},
+                  {txtLeft:"车间名称",txtChildren:["乙车间"]}
+              ],
               headerInfors:[{img:"/img/main-outin-list-icon.png", txt:"车间详情", isClose:true}],
               workWrapperStyl:{width:'101.7%',height:'102%',left:'-3.2px',top:'-3px'},
               // 搜索控件
@@ -173,7 +189,7 @@
                return  this.nameValue;
             }
         },
-        components: { WorkShopHeader, WorkWrapper}
+        components: { WorkShopHeader, WorkWrapper, WorkshopDetailsContent}
     }
 </script>
 
