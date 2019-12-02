@@ -1,7 +1,7 @@
 <template>
-    <div class="content" :style="contentStyl" v-if="isInfor">
-        <div class="content_left">{{leftText}}</div>
-        <div class="content_right">
+    <div class="content" :style="styles[0]" v-if="isInfor">
+        <div class="content_left" :style="styles[1]">{{leftText}}</div>
+        <div ref="contentRight"  class="content_right">
             <span v-for="(item,index) in rightTexts" :key="`txt${index}`" class="txt">{{item}}</span>
         </div>
     </div>
@@ -20,7 +20,7 @@
             return {
                 leftText:"",//左侧文字信息
                 rightTexts:[],//右侧文字信息
-                contentStyl:{} //详情信息内容盒子的行内样式
+                styles:[{},{}] //详情信息内容盒子的行内样式,左盒子行内样式
             }
         },
         created(){
@@ -28,10 +28,21 @@
           this.leftText=this.infor.txtLeft;
           //右侧文字信息初始化
           this.rightTexts=this.infor.txtChildren;
+          // console.log(this.contentLeftHeight);
+            this.$set(this.styles,0,this.infor.styl);
+        },
+        mounted() {
+            this.contentLeftHeight=this.getDomHeight(this.$refs.contentRight);
+            this.styles[1]['height']=`${this.contentLeftHeight}px`;
+            this.styles[1]['lineHeight']=`${this.contentLeftHeight}px`;
+            this.$set(this.styles,1,this.styles[1]);
         },
         computed:{
             isInfor(){ //判断属性是否为空
                 return  Object.keys(this.infor).length
+            },
+            getDomHeight(){
+                return (dom) => dom.offsetHeight
             }
         }
     }

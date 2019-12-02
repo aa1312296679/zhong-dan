@@ -8,12 +8,10 @@
             <template v-for="(item,index) in testInfor">
                 <WorkshopDetailsContent :key="`worksshopDetails${index}`" :infor="item"></WorkshopDetailsContent>
             </template>
-
-            <!--人员-->
-
-            <!--人员进出次数-->
             <!--评分--->
+          <b-button :_btnText="button['text']"></b-button>
         </work-wrapper>
+        <worksection-mark-dialog></worksection-mark-dialog>
     </div>
 </template>
 
@@ -21,17 +19,20 @@
     import WorkWrapper from "components/workWrapper";
     import WorkShopHeader from "components/workShopHeader";
     import WorkshopDetailsContent from "components/WorkshopDetailsContent"
+    import BButton from "components/BButton"
     import {getControlIndex,getTypeControls} from "js/util.js";
+    import WorksectionMarkDialog from "components/worksectionMarkDialog";
 
     export default {
         name: "employeeWarn",
         data(){
           return {
+              button:{text:"评分"},
               testInfor:[
                   {txtLeft:"车间名称",txtChildren:["乙车间"]},
-                  {txtLeft:"车间名称",txtChildren:["汪驲、李梦凡、周杰、王伟、刘旭张旭升、谢天宝、田曾、李虎、赵山汪驲、汪驲、汪驲、汪驲、汪驲汪驲、汪驲、汪驲"]},
-                  {txtLeft:"车间名称",txtChildren:["乙车间"]},
-                  {txtLeft:"车间名称",txtChildren:["乙车间"]}
+                  {txtLeft:"车间名称",txtChildren:["汪驲、李梦凡、周杰、王伟、刘旭张旭升、谢天宝、田曾、李虎、赵山汪驲、汪驲、汪驲、汪驲、汪驲汪驲、汪驲、汪驲"],styl:{padding:"11.6px 0"}},
+                  {txtLeft:"人员进出次数",txtChildren:["68次"]},
+                  {txtLeft:"评分",txtChildren:["未评分"]}
               ],
               headerInfors:[{img:"/img/main-outin-list-icon.png", txt:"车间详情", isClose:true}],
               workWrapperStyl:{width:'101.7%',height:'102%',left:'-3.2px',top:'-3px'},
@@ -189,7 +190,7 @@
                return  this.nameValue;
             }
         },
-        components: { WorkShopHeader, WorkWrapper, WorkshopDetailsContent}
+        components: {WorksectionMarkDialog, WorkShopHeader, WorkWrapper, WorkshopDetailsContent, BButton}
     }
 </script>
 
