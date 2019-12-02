@@ -9,9 +9,9 @@
                 <WorkshopDetailsContent :key="`worksshopDetails${index}`" :infor="item"></WorkshopDetailsContent>
             </template>
             <!--评分--->
-          <b-button :_btnText="button['text']"></b-button>
+          <b-button :_btnText="button['text']" @btnHandle="btnHandle"></b-button>
         </work-wrapper>
-        <worksection-mark-dialog></worksection-mark-dialog>
+        <worksection-mark-dialog ref="dialog"></worksection-mark-dialog>
     </div>
 </template>
 
@@ -27,6 +27,10 @@
         name: "employeeWarn",
         data(){
           return {
+              dialog: {
+                 state:false, //弹窗的显示状态true显示 false隐藏
+                 dialogObj:undefined //弹窗
+              },
               button:{text:"评分"},
               testInfor:[
                   {txtLeft:"车间名称",txtChildren:["乙车间"]},
@@ -75,16 +79,11 @@
               next:'>>'
           }
         },
-        created(){
-            this.pageHandler(1);
+        mounted(){
+            // 获取弹窗对象
+            this.dialog.dialogObj=this.$refs.dialog;
         },
         methods:{
-            /**
-             * 页面跳转处理
-             * **/
-            pageHandler: function (page) {
-                this.page = page;
-            },
             closeHandle(){
                 this.$emit("onClose");
             },
@@ -188,6 +187,12 @@
                 }
                 // 控件类型不是日历类型并且控件类型为文本框
                return  this.nameValue;
+            },
+            /**
+             * @method 评价分按钮点击处理
+             * **/
+            btnHandle(){
+                this.dialog.dialogObj.show();
             }
         },
         components: {WorksectionMarkDialog, WorkShopHeader, WorkWrapper, WorkshopDetailsContent, BButton}

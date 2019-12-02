@@ -1,5 +1,5 @@
 <template>
-    <div v-show="dialogState" class="worksectionMarkDialog">
+    <div v-show="dialogState" class="worksectionMarkDialog" @click="hide">
         弹窗
     </div>
 </template>
@@ -10,12 +10,27 @@
         props:{
             _dialogState:{ //弹窗状态
                 type:Boolean,
-                default:true
+                default:false
             }
         },
         data(){
             return {
-                dialogState:this._dialogState
+                dialogState:false
+            }
+        },
+        created(){
+          if(this._dialogState){
+              this.show();
+              return false
+          }
+          this.hide();
+        },
+        methods:{
+            show(){
+                this.dialogState=true;
+            },
+            hide() {
+                this.dialogState=false;
             }
         }
     }

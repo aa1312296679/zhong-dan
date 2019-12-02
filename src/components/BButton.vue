@@ -1,5 +1,5 @@
 <template>
-    <div class="button">{{btnText}}</div>
+    <div class="button" @click="btnClick">{{btnText}}</div>
 </template>
 
 <script>
@@ -15,6 +15,11 @@
             return {
                 btnText:this._btnText,
                 btnStyl: {} //行内样式
+            }
+        },
+        methods:{
+            btnClick(){
+                this.$emit("btnHandle");
             }
         }
     }
