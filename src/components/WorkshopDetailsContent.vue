@@ -32,9 +32,13 @@
             this.$set(this.styles,0,this.infor.styl);
         },
         mounted() {
+            console.log(this.leftText);
             this.contentLeftHeight=this.getDomHeight(this.$refs.contentRight);
+            console.log(this.$refs.contentRight.clientHeight);
             this.styles[1]['height']=`${this.contentLeftHeight}px`;
             this.styles[1]['lineHeight']=`${this.contentLeftHeight}px`;
+            console.log(this.contentLeftHeight);
+            console.log(this.styles[1]);
             this.$set(this.styles,1,this.styles[1]);
         },
         computed:{

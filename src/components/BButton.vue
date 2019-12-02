@@ -1,5 +1,5 @@
 <template>
-    <div class="button" @click="btnClick">{{btnText}}</div>
+    <div class="button" :style="btnStyl" @click="btnClick">{{btnText}}</div>
 </template>
 
 <script>
@@ -9,6 +9,10 @@
             _btnText:{
                 type:String,
                 default:""
+            },
+            _btnStyl:{
+                type: Object,
+                default: ()=>{return {}}
             }
         },
         data(){
@@ -16,6 +20,10 @@
                 btnText:this._btnText,
                 btnStyl: {} //行内样式
             }
+        },
+        created(){
+            console.log(this._btnStyl)
+            this.btnStyl=this._btnStyl
         },
         methods:{
             btnClick(){

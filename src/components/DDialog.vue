@@ -1,63 +1,65 @@
 <template>
-    <div class="workshop_inspection">
+    <div v-show="showState" class="dialog_wrapper">
         <work-wrapper :stylObj="workWrapperStyl">
             <!--头部信息-->
             <work-shop-header :infor="getHeaderInfor(0)" @onClose="closeHandle"></work-shop-header>
-
-            <!--名称-->
-            <template v-for="(item,index) in testInfor">
-                <WorkshopDetailsContent :key="`worksshopDetails${index}`" :infor="item"></WorkshopDetailsContent>
+            <!--文字信息-->
+            <template v-for="(item,index) in dialogInfors">
+                <div class="workShopName" :key="`workShopName${index}`">
+                    <span class="txt_one">{{item.txtLeft}}:</span>
+                    <!--文字类型-->
+                    <template v-if="item.type==='text'">
+                        <span v-for="(item,index) in item.txtChildren" :key="`txt_two${index}`" class="txt_two">{{item}}</span>
+                    </template>
+                    <!--input类型-->
+                    <template v-if="item.type==='input'">
+                        <input :style="item.styl" class="worksection_mark_input" :placeholder="inputTexts[getInputTextIndex(item.id)].normal" v-model="inputTexts[getInputTextIndex(item.id)].curValue"/>
+                    </template>
+                </div>
             </template>
             <!--评分--->
-          <b-button :_btnText="button['text']" @btnHandle="btnHandle"></b-button>
+            <div class="button_wrapper">
+                <div class="buttons">
+                    <b-button :_btnText="buttons[0]['text']" @btnHandle="btnHandle('submit')"></b-button>
+                    <b-button :_btnText="buttons[1]['text']" :_btnStyl="buttons[1]['styl']" @btnHandle="btnHandle('cancel')"></b-button>
+                </div>
+            </div>
         </work-wrapper>
-        <!--遮罩-->
-        <shade ref="shade"></shade>
-        <!--弹窗-->
-        <d-dialog ref="dialog" @dialogClose="dialogCloseHandle"></d-dialog>
     </div>
 </template>
 
 <script>
     import WorkWrapper from "components/workWrapper";
     import WorkShopHeader from "components/workShopHeader";
-    import WorkshopDetailsContent from "components/WorkshopDetailsContent"
     import BButton from "components/BButton"
-    import {getControlIndex,getTypeControls} from "js/util.js";
-    import shade from "components/shade";
-    import DDialog from "components/DDialog"
+    import {getControlIndex} from "js/util.js";
+    import showState from "common/mixins/showState";
+
     export default {
         name: "employeeWarn",
+        mixins:[showState],
         data(){
           return {
-              dialog: {
-                 state:false, //弹窗和遮罩的显示状态true显示 false隐藏
-                 shade:undefined, //遮罩
-                 dialog:undefined //弹窗遮罩
-              },
-              button:{text:"评分"},
-              testInfor:[ //所有文字信息
-                  {txtLeft:"车间名称",txtChildren:["乙车间"]},
-                  {txtLeft:"车间名称",txtChildren:["汪驲、李梦凡、周杰、王伟、刘旭张旭升、谢天宝、田曾、李虎、赵山汪驲、汪驲、汪驲、汪驲、汪驲汪驲、汪驲、汪驲"],styl:{padding:"11.6px 0"}},
-                  {txtLeft:"人员进出次数",txtChildren:["68次"]},
-                  {txtLeft:"评分",txtChildren:["未评分"]}
+              buttons:[{text:"确认"},{text:"取消",styl:{float:"right",color:"#00b2ff",border:"1px solid #00b2ff",background:"transparent"}}],
+             dialogInfors:[
+                  {id:"01",txtLeft:"车间名称",txtChildren:["乙车间"],type:"text"},
+                  {id:"02",txtLeft:"评分",type:"input",styl:{width:"144px"}}
               ],
-              headerInfors:[{img:"/img/main-outin-detail-icon.png", txt:"车间详情", isClose:true}],
+              headerInfors:[{img:"/img/main-outin-detail-icon.png", txt:"在岗情况评分", isClose:true}],
               workWrapperStyl:{width:'101.7%',height:'102%',left:'-3.2px',top:'-3px'},
-              nameValue:"", //姓名
-              styl:{paddingLeft:'4px'}, //需要修改的css值:margin-top:9px动态构建  公有的样式值padding-left4px
-
+              inputTexts:[{id:"02",curValue:"",normal:"最高分100"}]
           }
         },
-        mounted(){
-            // 获取弹窗对象
-            this.dialog.shade=this.$refs.shade;
-            // 获取弹窗对象
-            this.dialog.dialog=this.$refs.dialog;
+        created(){
+            if(this._showState){
+                this.show();
+                return false
+            }
+            this.hide();
         },
         methods:{
             closeHandle(){
-                this.$emit("onClose");
+                this.$emit("dialogClose")
             },
             /**
              * 获取头部组件的头部信息
@@ -67,31 +69,17 @@
             },
             /***
              * 提交处理
+             * @method btnHandle
+             * @param btnType 按钮类型
              */
-            submitHandle(){
-                // 禁用提交状态
-                this.isState=false;
-                //遍历所有的option索引值和option的数组下标
-                let optionIndexes =this.activeOptionIndexs;
-                //获取select控件集
-                let tempSelectInfors = getTypeControls(this.searchControls,3);
-                //所有需要提交到服务器的option信息
-                 let optionVals=[];
-                // 遍历所有被选中的option索引
-                optionIndexes.forEach((curVal,curIndex)=>{
-                    //获取当前option索引集的key找到对应的Option集合
-                    let {options} = tempSelectInfors[curIndex];
-                    //通过的option索引值找到对应的option的val值
-                    let {val} =options[curVal];
-                    optionVals.push({val});
-                });
-
-                console.log("---需要提交至服务器的option信息---");
-                console.log(optionVals);
-                console.log("---需要提交到服务器的日历信息--");
-                console.log(this.calendarVals);
-                console.log("-----需要提交到服务器的姓名---");
-                console.log(this.nameVal);
+            btnHandle(btnType){
+                if(btnType==="submit"){
+                    if(this.inputTexts[0].curValue!==""){
+                        console.log('提交用户信息');
+                    }
+                    return false
+                }
+                console.log('取消处理');
             },
             /***
              * 动态构建每个元素的左内边距
@@ -161,36 +149,74 @@
                return  this.nameValue;
             },
             /**
-             * @method 评价分按钮点击处理
+             * 弹窗关闭
              * **/
-            btnHandle(){
-                this.dialog.shade.show();
-                this.dialog.dialog.show();
+            dialogColose(){
+                this.$emit("dialogClose")
             },
-            /**
-             * 弹窗关闭点击处理
-             * **/
-            dialogCloseHandle(){
-                this.dialog.shade.hide();
-                console.log(this.dialog.dialog);
-                this.dialog.dialog.hide();
+            /***
+             * 设置inputText的双向绑定值
+             * @param id 元素唯一标识
+             */
+            getInputTextIndex(id){
+               let tempInputTexts =this.inputTexts;
+               let tempInputTextsSize=this.inputTexts.length;
+               let curIndex=-1;
+               for (let i=0;i<tempInputTextsSize;i++){
+                     if(tempInputTexts[i]['id']===id){
+                         curIndex=i;
+                     }
+                }
+               return curIndex;
             }
         },
-        components: {shade, WorkShopHeader, WorkWrapper, WorkshopDetailsContent, BButton, DDialog}
+        components: { WorkShopHeader, WorkWrapper, BButton}
     }
 </script>
 
 <style lang="stylus" scoped>
-.workshop_inspection
-    width 400px
-    height 311px
-    float left
-    margin-top 50px
-    margin-left 30px
+.dialog_wrapper
+    width 300px
+    height 249.6px
     background rgba(12, 32, 53, 0.6)
     border-radius 6px
     transition: ease-in-out 0.3s
     box-shadow: -2px 0px 2px rgba(79, 173, 233, 0.6) inset, 0px -2px 2px rgba(79, 173, 233, 0.6) inset, 2px 0px 2px rgba(79, 173, 233, 0.6) inset, 0px 2px 2px rgba(79, 173, 233, 0.6) inset
-    position relative
+    position fixed
+    left: 50%
+    top 150.875px
+    transform: translateX(-50%) /* 50%为自身尺寸的一半 */
+    -webkit-transform: translateX(-50%)
     z-index 1000
+    .workShopName
+        border 1px dashed red
+        padding-left 20%
+        margin 14px 0
+        .txt_one,.txt_two
+            border 1px solid blue
+            color #fff
+        .txt_two
+            margin-left 4px
+         .worksection_mark_input
+                height: 30px;
+                border-radius: 4px;
+                outline: 0;
+                margin-left: 8px;
+                vertical-align: middle;
+                text-indent: 6px;
+                border: 1px solid #00b2ff;
+                background: none;
+                color: #FFFFFF;
+    .button_wrapper
+        width 98%
+        margin 0 auto
+        border 1px dashed red
+        overflow hidden
+        .buttons
+            margin 0 auto
+            overflow hidden
+            width 210px
+            border 1px solid orange
+            .button
+                float left
 </style>
