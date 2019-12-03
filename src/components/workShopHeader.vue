@@ -39,13 +39,11 @@
 .content_header
     width 98%
     height 56px
-    border 1px dashed blue
     margin-top 6px
     margin-left auto
     margin-right auto
     padding 0 16px
     .ico_left,.ico_right
-        border 1px dashed blue
         height 44px
     .ico_left
         float left
@@ -72,7 +70,6 @@
           display flex
           align-items center
           .close
-             border 1px dashed red
              width 17px
              height 17px
 </style>

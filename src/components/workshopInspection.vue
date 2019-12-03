@@ -9,12 +9,12 @@
                 <WorkshopDetailsContent :key="`worksshopDetails${index}`" :infor="item"></WorkshopDetailsContent>
             </template>
             <!--评分--->
-          <b-button :_btnText="button['text']" @btnHandle="btnHandle"></b-button>
+          <b-button :_btnText="button['text']" @btnHandle="btnHandle('score')"></b-button>
         </work-wrapper>
         <!--遮罩-->
         <shade ref="shade"></shade>
         <!--弹窗-->
-        <d-dialog ref="dialog" @dialogClose="dialogCloseHandle"></d-dialog>
+        <d-dialog ref="dialog" @dialogClose="dialogCloseHandle" @onDialogBtn="btnHandle"></d-dialog>
     </div>
 </template>
 
@@ -163,9 +163,16 @@
             /**
              * @method 评价分按钮点击处理
              * **/
-            btnHandle(){
-                this.dialog.shade.show();
-                this.dialog.dialog.show();
+            btnHandle(btnType){
+                console.log(btnType)
+                if(btnType==="submit"){
+                    console.log('提交用户信息');
+                }else if(btnType==="cancel"){
+                    console.log('取消处理');
+                }else if(btnType==="score"){
+                    this.dialog.shade.show();
+                    this.dialog.dialog.show();
+                }
             },
             /**
              * 弹窗关闭点击处理
