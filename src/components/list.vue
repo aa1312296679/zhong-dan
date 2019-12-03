@@ -2,10 +2,10 @@
     <div class="list">
      <template v-for="(item,index) in titles">
          <!--列表头-->
-         <list-title :key="index" :titleInfor="item" :rowsCount="titles.length"></list-title>
+         <list-title :key="`${item.catId}${index}`" :titleInfor="item" :rowsCount="titles.length"></list-title>
      </template>
         <!--列表内容-->
-        <list-content :key="index+item.catId" v-for="(item,index) in contents" :infor="item"></list-content>
+        <list-content :key="`${index}${item.catId}`" v-for="(item,index) in contents" :infor="item"></list-content>
     </div>
 </template>
 
@@ -23,6 +23,9 @@
                 type:Array,
                 default:()=>[]
             }
+        },
+        created(){
+          console.log(this.titles);
         },
         components:{
             ListContent,

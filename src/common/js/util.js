@@ -79,12 +79,59 @@ const getControlIndex = (controls,curControl,objName,type,typeControls,sarchInde
  */
 const lisrContentMouse = {
     over(){
-      console.log(this);
       this.isMouse=true;
     },
     out(){
         this.isMouse=false;
     }
+}
+
+// /**
+//  * setDialogObj 构建需要提交的弹窗信息
+//  * @param objType 需要设置的迭代属性名称
+//  **/
+// const setDialogObj=(objType)=>{
+//
+// }
+
+
+/**
+ * 动态构建车间详情的弹窗模块的提交信息
+ * @method submitContents
+ * @param dialogContents 弹窗信息
+ */
+const submitContents = (dialogContents) => {
+    // 存储所有文字信息和所有input信息
+    return dialogContents.reduce((dialogObj,curItem)=>{
+        // 获取当期数据信息
+        let tempCurInfor=curItem;
+        // 获取迭代对象
+        let tempDialogObj = dialogObj;
+        // 判断当前数据信息是否为text类型
+        if(tempCurInfor['type']==="text"){
+               // 获取迭代对象的texts属性
+               let {texts} = tempDialogObj;
+               // 判断当前的迭代对象是否存在存储文字信息的属性
+               if(!texts){
+                   texts=[]
+               }
+               // 迭代存储文字信息
+               texts.push({id:tempCurInfor['id'], textValues:tempCurInfor['txtChildren']});
+               tempDialogObj['texts']=texts;
+        // 判断当前数据信息是否为input类型
+        }else if(tempCurInfor['type']==='input'){
+            // 获取迭代对象的inputs属性
+            let {inputs} = tempDialogObj;
+            // 判断当前的迭代对象是否存在存储input信息的属性
+            if(!inputs){
+                inputs=[]
+            }
+            // 迭代存储input信息
+            inputs.push({id:tempCurInfor['id'], curValue:tempCurInfor['curValue']});
+            tempDialogObj['inputs']=inputs;
+        }
+        return tempDialogObj
+    },{})
 }
 
 // 车间工作信息
@@ -117,5 +164,6 @@ export {
     entryAndExits,
     riskManagement,
     workshopInspection,
-    dialogHandles
+    dialogHandles,
+    submitContents
 }

@@ -13,7 +13,7 @@
         <!--遮罩-->
         <shade ref="shade" @onShadeClick="shadeClickHandle"></shade>
         <!--弹窗-->
-        <d-dialog ref="dialog" :_headerInfors="dialog['dialogHeaderInfors']" :_dialogContents="dialog['dialogContents']" :_buttons="dialog['dialogButtons']" @onDialogClose="dialogCloseHandle" @onDialogBtn="btnHandle"></d-dialog>
+        <d-dialog ref="dialog" :_headerInfors="dialog['dialogHeaderInfors']" :_dialogContents="dialog['dialogContents']" :_buttons="dialog['dialogButtons']" @onDialogClose="dialogCloseHandle" @onDialogBtn="dialogBtnHandle"></d-dialog>
     </div>
 </template>
 
@@ -22,7 +22,7 @@
     import WorkShopHeader from "components/workShopHeader";
     import WorkshopDetailsContent from "components/WorkshopDetailsContent"
     import BButton from "components/BButton"
-    import {dialogHandles} from "js/util.js";
+    import {dialogHandles,submitContents} from "js/util.js";
     import shade from "components/shade";
     import DDialog from "components/DDialog"
     export default {
@@ -91,7 +91,14 @@
              * **/
             dialogBtnHandle(btnType){
                 if(btnType==='submit'){
-                    console.log("弹窗被点击按钮为提交")
+                    // console.log("弹窗被点击按钮为提交");
+                    // let tempValue= this.dialog.dialogContents[1].curValue;
+                    // console.log(this.dialog.dialogContents);
+                    let contents=submitContents(this.dialog.dialogContents);
+                    console.log(contents);
+
+
+                    // console.log(tempValue);
                 }else if(btnType==='cancel'){
                     this.btnHandle(btnType);
                 }

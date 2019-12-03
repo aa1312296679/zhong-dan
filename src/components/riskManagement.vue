@@ -38,9 +38,9 @@
                   {txt:"名称",controlType:1}
               ],
               workTitles:[  // 列表头信息
-                  {txt:"序号",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}},
-                  {txt:"名称",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}},
-                  {txt:"操作",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}}
+                  {catId:'011',txt:"序号",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}},
+                  {catId:'012',txt:"名称",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}},
+                  {catId:'013',txt:"操作",styl:{borderTopRightRadius:"6px",borderTopLeftRadius:"6px"}}
               ],
               workContents:[ // 列表内容信息
                   {index:1,typeName:"电子围栏名称",ico:"/img/look-outinrecord-btn.png",activeIco:"/img/look-outinrecord-btn-highlight.png"},
