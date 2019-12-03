@@ -2,7 +2,7 @@
     <div v-show="showState" class="dialog_wrapper">
         <work-wrapper :stylObj="workWrapperStyl">
             <!--头部信息-->
-            <work-shop-header :infor="getHeaderInfor(0)" @onClose="closeHandle"></work-shop-header>
+            <work-shop-header :infor="getHeaderInfor(0)" @onClose="closeBtnHandle"></work-shop-header>
             <!--文字信息-->
             <template v-for="(item,index) in dialogInfors">
                 <div class="workShopName" :key="`workShopName${index}`">
@@ -66,8 +66,8 @@
              * 弹窗关闭点击处理
              * @method closeHandle
              * **/
-            closeHandle(){
-                this.$emit("dialogClose")
+            closeBtnHandle(){
+                this.$emit("onDialogClose");
             },
             /**
              * 获取头部组件的头部信息

@@ -1,5 +1,5 @@
 <template>
-    <div v-show="showState" class="worksectionMarkDialog" @click="hide"></div>
+    <div v-show="showState" class="shade" @click="shadeClickHandle"></div>
 </template>
 
 <script>
@@ -13,12 +13,20 @@
               return false
           }
           this.hide();
+        },
+        methods:{
+            /**
+             * @method 遮罩点击处理
+             */
+            shadeClickHandle(){
+                 this.$emit("onShadeClick")
+            }
         }
     }
 </script>
 
 <style lang="stylus" scoped>
-.worksectionMarkDialog
+.shade
     width 100%
     height 100%
     background-color: black;

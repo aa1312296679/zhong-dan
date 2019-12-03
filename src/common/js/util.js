@@ -14,6 +14,20 @@ let mouseTypies = {
     }
 }
 
+/***
+ * dialog显示与隐藏
+ **/
+let dialogHandles = {
+    dialogShow(){ //显示弹窗和弹窗的遮罩
+        this.dialog.shadeObj.show();
+        this.dialog.dialogObj.show();
+    },
+    dialogHide(){ //隐藏弹窗和弹窗的遮罩
+        this.dialog.shadeObj.hide();
+        this.dialog.dialogObj.hide();
+    }
+}
+
 /**
  * 获取指定类型的控件集合
  * @param controls 控件综合集
@@ -102,5 +116,6 @@ export {
     lisrContentMouse,
     entryAndExits,
     riskManagement,
-    workshopInspection
+    workshopInspection,
+    dialogHandles
 }
