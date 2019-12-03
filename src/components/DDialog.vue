@@ -4,7 +4,7 @@
             <!--头部信息-->
             <work-shop-header :infor="getHeaderInfor(0)" @onClose="closeBtnHandle"></work-shop-header>
             <!--文字信息-->
-            <template v-for="(item,index) in dialogInfors">
+            <template v-for="(item,index) in dialogContents">
                 <div class="workShopName" :key="`workShopName${index}`">
                     <span class="txt_one">{{item.txtLeft}}:</span>
                     <!--文字类型-->
@@ -38,18 +38,40 @@
     export default {
         name: "employeeWarn",
         mixins:[showState],
+       props:{
+         _headerInfors:{ //弹窗头部信息
+             type:Array,
+             default(){
+                 return []
+             }
+         },
+         _showState:{ //弹窗显示状态
+             type:Boolean,
+             default() {
+                 return false;
+             }
+         },
+         _dialogContents:{ //弹窗内容
+             type:Array,
+             default(){
+                 return []
+             }
+         },
+          _buttons:{ //按钮信息
+              type:Array,
+              default(){
+                  return []
+              }
+          }
+       },
         data(){
           return {
              // 弹窗按钮信息
-             buttons:[{text:"确认",handleType:"submit"},
-                 {text:"取消",handleType:"cancel",styl:{float:"right",color:"#00b2ff",border:"1px solid #00b2ff",background:"transparent"}}],
+             buttons:[],
              // 弹窗内容
-             dialogInfors:[
-                  {id:"01",txtLeft:"车间名称",txtChildren:["乙车间"],type:"text"},
-                  {id:"02",txtLeft:"评分",type:"input",styl:{width:"144px"},curValue:"",normalValue:"最高分100"}
-              ],
+              dialogContents:[],
               //弹窗头部信息
-              headerInfors:[{img:"/img/main-outin-detail-icon.png", txt:"在岗情况评分", isClose:true}],
+              headerInfors:[],
               // 弹窗行内样式
               workWrapperStyl:{width:'101.7%',height:'102%',left:'-3.2px',top:'-3px'}
           }
@@ -59,6 +81,14 @@
                 this.show();
                 return false
             }
+
+            //初始化弹窗头部信息
+            this.headerInfors=this._headerInfors;
+            //初始化弹窗内容信息
+            this.dialogContents=this._dialogContents;
+            //初始化弹窗按钮信息
+            this.buttons=this._buttons;
+
             this.hide();
         },
         methods:{

@@ -13,9 +13,9 @@
         <!--遮罩-->
         <shade ref="shade" @onShadeClick="shadeClickHandle"></shade>
         <!--弹窗-->
-        <d-dialog ref="dialog" @onDialogClose="dialogCloseHandle" @onDialogBtn="btnHandle"></d-dialog>
+        <d-dialog ref="dialog" :_headerInfors="dialog['dialogHeaderInfors']" :_dialogContents="dialog['dialogContents']" :_buttons="dialog['dialogButtons']" @onDialogClose="dialogCloseHandle" @onDialogBtn="btnHandle"></d-dialog>
     </div>
-</template>2
+</template>
 
 <script>
     import WorkWrapper from "components/workWrapper";
@@ -32,7 +32,18 @@
               dialog: {
                  state:false, //弹窗和遮罩的显示状态true显示 false隐藏
                  shadeObj:undefined, //遮罩引用
-                 dialogObj:undefined //弹窗引用
+                 dialogObj:undefined, //弹窗引用
+                 dialogHeaderInfors:[{img:"/img/main-outin-detail-icon.png", txt:"在岗情况评分", isClose:true}], //弹窗头部信息
+                 // 弹窗内容信息
+                 dialogContents:[
+                     {id:"01",txtLeft:"车间名称",txtChildren:["乙车间"],type:"text"},
+                     {id:"02",txtLeft:"评分",type:"input",styl:{width:"144px"},curValue:"",normalValue:"最高分100"}
+                 ],
+                 // 弹窗按钮信息
+                 dialogButtons:[
+                      {text:"确认",handleType:"submit"},
+                      {text:"取消",handleType:"cancel",styl:{float:"right",color:"#00b2ff",border:"1px solid #00b2ff",background:"transparent"}}
+                 ]
               },
               button:{text:"评分"}, //按钮信息
               testInfor:[ //文字信息
