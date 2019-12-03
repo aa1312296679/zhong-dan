@@ -86,14 +86,51 @@ const lisrContentMouse = {
     }
 }
 
-// /**
-//  * setDialogObj 构建需要提交的弹窗信息
-//  * @param objType 需要设置的迭代属性名称
-//  **/
-// const setDialogObj=(objType)=>{
-//
-// }
+/**
+ * 构建需要提交的弹窗信息
+ * @method setDialogObj
+ * @param dialogObj 弹窗信息
+ * @param objType 需要设置的迭代属性名称
+ * @param dialogInfor 迭代信息
+ **/
+const setDialogObj = (dialogObj,objType,dialogInfor)=>{
+    // 获取迭代对象的迭代属性
+    let tempObjValue = dialogObj[objType];
+    // 判断迭代对象的迭代属性是否存在
+    if(!tempObjValue){
+        tempObjValue=[]
+    }
+    tempObjValue.push(dialogInfor);
+    //更新设置迭代对象的迭代值
+    dialogObj[objType]=tempObjValue;
+}
 
+/**
+ * 提交信息数据重构处理
+ **/
+const submitContentHandles = {
+    /***
+     * @method text
+     * @param dialogObj 弹窗信息
+     * @param data 当前迭代信息
+     * */
+    text(dialogObj,data){
+        setDialogObj(dialogObj,'texts',{id:data['id'], textValues:data['txtChildren']});
+    },
+    input(dialogObj,data){
+        setDialogObj(dialogObj,'inputs',{id:data['id'], curValue:data['curValue']});
+    },
+    /***
+     * input数据集的非空判断
+     * @method someInput
+     * @param inputs 所有input信息
+     */
+    someInput(inputs){
+       return  inputs.some((item)=>{
+         return item['curValue']===""
+        })
+    }
+}
 
 /**
  * 动态构建车间详情的弹窗模块的提交信息
@@ -103,33 +140,14 @@ const lisrContentMouse = {
 const submitContents = (dialogContents) => {
     // 存储所有文字信息和所有input信息
     return dialogContents.reduce((dialogObj,curItem)=>{
-        // 获取当期数据信息
+        // 获取当前数据信息
         let tempCurInfor=curItem;
         // 获取迭代对象
         let tempDialogObj = dialogObj;
-        // 判断当前数据信息是否为text类型
-        if(tempCurInfor['type']==="text"){
-               // 获取迭代对象的texts属性
-               let {texts} = tempDialogObj;
-               // 判断当前的迭代对象是否存在存储文字信息的属性
-               if(!texts){
-                   texts=[]
-               }
-               // 迭代存储文字信息
-               texts.push({id:tempCurInfor['id'], textValues:tempCurInfor['txtChildren']});
-               tempDialogObj['texts']=texts;
-        // 判断当前数据信息是否为input类型
-        }else if(tempCurInfor['type']==='input'){
-            // 获取迭代对象的inputs属性
-            let {inputs} = tempDialogObj;
-            // 判断当前的迭代对象是否存在存储input信息的属性
-            if(!inputs){
-                inputs=[]
-            }
-            // 迭代存储input信息
-            inputs.push({id:tempCurInfor['id'], curValue:tempCurInfor['curValue']});
-            tempDialogObj['inputs']=inputs;
-        }
+        // 获取数据类型
+        let tempType = tempCurInfor['type'];
+        // 根据不同的数据类型进行相应的数据重构
+        submitContentHandles[tempType](tempDialogObj,tempCurInfor);
         return tempDialogObj
     },{})
 }
@@ -165,5 +183,6 @@ export {
     riskManagement,
     workshopInspection,
     dialogHandles,
-    submitContents
+    submitContents,
+    submitContentHandles
 }
