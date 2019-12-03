@@ -13,6 +13,10 @@
             _btnStyl:{
                 type: Object,
                 default: ()=>{return {}}
+            },
+            _handleType:{
+                type:String,
+                default:""
             }
         },
         data(){
@@ -22,12 +26,17 @@
             }
         },
         created(){
-            console.log(this._btnStyl)
+            // console.log(this._btnStyl)
+            if(!this._btnStyl){
+                return false
+            }
+
+            // 设置button的行内样式
             this.btnStyl=this._btnStyl
         },
         methods:{
             btnClick(){
-                this.$emit("btnHandle");
+                this.$emit("btnHandle",this._handleType);
             }
         }
     }

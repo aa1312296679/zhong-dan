@@ -20,8 +20,9 @@
             <!--评分--->
             <div class="button_wrapper">
                 <div class="buttons">
-                    <b-button :_btnText="buttons[0]['text']" @btnHandle="btnHandle('submit')"></b-button>
-                    <b-button :_btnText="buttons[1]['text']" :_btnStyl="buttons[1]['styl']" @btnHandle="btnHandle('cancel')"></b-button>
+                    <template v-for="(item,index) in buttons">
+                        <b-button :key="`button${index}`" :_btnText="item['text']"  :_btnStyl="item['styl']" :_handleType="item['handleType']" @btnHandle="_btnHandle"></b-button>
+                    </template>
                 </div>
             </div>
         </work-wrapper>
@@ -40,7 +41,8 @@
         mixins:[showState],
         data(){
           return {
-              buttons:[{text:"确认"},{text:"取消",styl:{float:"right",color:"#00b2ff",border:"1px solid #00b2ff",background:"transparent"}}],
+             buttons:[{text:"确认",handleType:"submit"},
+                 {text:"取消",handleType:"cancel",styl:{float:"right",color:"#00b2ff",border:"1px solid #00b2ff",background:"transparent"}}],
              dialogInfors:[
                   {id:"01",txtLeft:"车间名称",txtChildren:["乙车间"],type:"text"},
                   {id:"02",txtLeft:"评分",type:"input",styl:{width:"144px"}}
@@ -80,6 +82,12 @@
                     return false
                 }
                 console.log('取消处理');
+            },
+            /***
+             * 提交处理中间层
+             * **/
+            _btnHandle(btnType){
+                this.btnHandle(btnType);
             },
             /***
              * 动态构建每个元素的左内边距
