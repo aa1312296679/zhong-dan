@@ -55,7 +55,6 @@
 <style lang="stylus" scoped>
 .content
     padding 0 20.4px
-    border 1px dashed red
     margin 0 auto
     width 98%
     color #fff
@@ -65,11 +64,9 @@
     .content_left
         text-align right
         width 24.8%
-        border 1px solid blue
     .content_right
         max-width 75.2%
         width auto
-        border 1px solid orange
         padding-left 20px
         max-height 100px
 </style>

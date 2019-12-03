@@ -22,7 +22,7 @@
     import WorkShopHeader from "components/workShopHeader";
     import WorkshopDetailsContent from "components/WorkshopDetailsContent"
     import BButton from "components/BButton"
-    import {dialogHandles,submitContents,submitContentHandles} from "js/util.js";
+    import {dialogHandles,btnHandles} from "js/util.js";
     import shade from "components/shade";
     import DDialog from "components/DDialog"
     export default {
@@ -99,35 +99,7 @@
              * @param btnType 按钮的事件类型
              * **/
             btnHandle(btnType){
-                // 提交按钮点击处理
-                if(btnType==="submit"){
-                    // 获取需要提交的input文本输入框的值和车间名称
-                    let {inputs,texts}=submitContents(this.dialog.dialogContents);
-                    //input文本输入框数据集的非空判断
-                    if(submitContentHandles.someInput(inputs)){
-                        console.log("有信息未填，不可提交");
-                        return false
-                    }
-                    console.log("----提交信息----");
-                    console.log(inputs);
-                    console.log(texts);
-                // 取消按钮点击处理
-                }else if(btnType==="cancel"){
-                    this.dialogShadeHandle('dialogHide');
-                // 评分按钮点击处理
-                }else if(btnType==="score"){
-                    //显示弹窗和遮罩
-                    this.dialogShadeHandle('dialogShow');
-                // 车间详情模块的关闭按钮点击处理
-                }else if(btnType==="workShopInspectionClosed"){
-                    this.$emit("onClose");
-                // 遮罩点击处理
-                }else if(btnType==="shadeClick"){
-                    this.dialogShadeHandle('dialogHide');
-                // 窗口关闭点击处理
-                }else if(btnType==="dialogClose"){
-                    this.dialogShadeHandle('dialogHide');
-                }
+                btnHandles[btnType].call(this);
             },
             /**
              * 显示弹窗和遮罩或关闭弹窗和遮罩

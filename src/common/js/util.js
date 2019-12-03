@@ -132,6 +132,39 @@ const submitContentHandles = {
     }
 }
 
+/***
+ * 车间详情业务模块的按钮点击处理
+ */
+const btnHandles={
+    submit(){
+        // 获取需要提交的input文本输入框的值和车间名称
+        let {inputs,texts}=submitContents(this.dialog.dialogContents);
+        //input文本输入框数据集的非空判断
+        if(submitContentHandles.someInput(inputs)){
+            console.log("有信息未填，不可提交");
+            return false
+        }
+        console.log("----提交信息----");
+        console.log(inputs);
+        console.log(texts);
+    },
+    cancel(){
+        this.dialogShadeHandle('dialogHide');
+    },
+    score(){
+        this.dialogShadeHandle('dialogShow');
+    },
+    workShopInspectionClosed(){
+        this.$emit("onClose");
+    },
+    shadeClick(){
+        this.dialogShadeHandle('dialogHide');
+    },
+    dialogClose(){
+        this.dialogShadeHandle('dialogHide');
+    }
+}
+
 /**
  * 动态构建车间详情的弹窗模块的提交信息
  * @method submitContents
@@ -184,5 +217,6 @@ export {
     workshopInspection,
     dialogHandles,
     submitContents,
-    submitContentHandles
+    submitContentHandles,
+    btnHandles
 }
