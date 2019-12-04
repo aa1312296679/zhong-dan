@@ -201,6 +201,8 @@ const entryAndExits = () => import("components/entryAndExit");
 const riskManagement = () => import("components/riskManagement");
 //车间检查
 const workshopInspection = () => import("components/workshopInspection");
+//风控列表
+const dropDownMenu = () => import("components/dropDownMenu");
 
 export {
     mouseTypies,
@@ -218,5 +220,6 @@ export {
     dialogHandles,
     submitContents,
     submitContentHandles,
-    btnHandles
+    btnHandles,
+    dropDownMenu
 }
