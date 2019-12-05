@@ -1,20 +1,14 @@
 <template>
     <div class="drop_down_menu">
         <!--列表内容盒子-->
-        <div class="drop_down_content">
-            <div class="drop_down_item">
-                <img class="drop_down_item_logo" src="/img/menu-yanchen-icon.png"/>
-                <span class="text">item文字</span>
+        <transition>
+            <div class="drop_down_content" v-show="!showState">
+                <div class="drop_down_item" v-for="(item,index) in listItems" :key="index">
+                    <img class="drop_down_item_logo" :src="item.img"/>
+                    <span class="text">{{item.text}}</span>
+                </div>
             </div>
-            <div class="drop_down_item">列表项</div>
-            <div class="drop_down_item">列表项</div>
-            <div class="drop_down_item">列表项</div>
-            <div class="drop_down_item">列表项</div>
-            <div class="drop_down_item">列表项</div>
-            <div class="drop_down_item">列表项</div>
-            <div class="drop_down_item">列表项</div>
-            <div class="drop_down_item">列表项</div>
-        </div>
+        </transition>
         <div :class="['drop_down_ico_wrapper',icoActive,'iconfont']" @click="icoHandle"></div>
     </div>
 </template>
@@ -24,17 +18,32 @@
         name: "dropDownMenu",
         data(){
             return {
-                isRotate:false //旋转状态
+                showState:false, //旋转状态和显示状态
+                listItems:[ //所有列表项目信息
+                    {pid:'dropDown_0',img:'/img/menu-yanchen-icon.png',text:"固液焚烧炉烟尘"},
+                    {pid:'dropDown_1',img:'/img/menu-yanchencanshu-icon.png',text:"盐碳化炉烟尘七参数监测"},
+                    {pid:'dropDown_2',img:'/img/menu-paikou-icon.png',text:"东清下水排口COD"},
+                    {pid:'dropDown_3',img:'/img/menu-paikou-icon.png',text:"西清下水排口COD"},
+                    {pid:'dropDown_4',img:'/img/menu-yanchen-icon.png',text:"西清下水排口COD数据上传"},
+                    {pid:'dropDown_5',img:'/img/menu-yanchen-icon.png',text:"RTO"},
+                    {pid:'dropDown_6',img:'/img/menu-yanchen-icon.png',text:"固液焚烧炉"},
+                    {pid:'dropDown_7',img:'/img/menu-yanchen-icon.png',text:"盐碳化炉"},
+                    {pid:'dropDown_8',img:'/img/menu-yanchen-icon.png',text:"污水排口COD"},
+                    {pid:'dropDown_9',img:'/img/menu-yanchen-icon.png',text:"催化氧化四套VOCCOD"}
+                ]
             }
         },
         computed:{
             icoActive(){
-                return this.isRotate?'drop_down_ico_active':''
+                return this.showState?'drop_down_ico_active':''
             }
         },
         methods:{
+            /***
+             * 图标点击处理
+             */
             icoHandle(){
-                this.isRotate=!this.isRotate;
+                this.showState=!this.showState;
             }
         }
     }
@@ -45,6 +54,10 @@
     position fixed
     right: 20px
     top 140px
+    .v-enter,.v-leave-to
+        opacity 0
+    .v-enter-active,.v-leave-active
+        transition: all 1s ease;
     .drop_down_content,.drop_down_ico_wrapper
         float left
     .drop_down_ico_wrapper,.drop_down_content .drop_down_item
@@ -78,6 +91,7 @@
             color #fff
             .drop_down_item_logo,.text
                 height 23px
+                line-height 23px
             .drop_down_item_logo
                 width 23px
                 display block
