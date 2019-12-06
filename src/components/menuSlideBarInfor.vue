@@ -47,7 +47,6 @@
     .menue_item,.menue_item_active
         height 32px
         line-height 32px
-        border 1px dashed blue
         margin-bottom 6px
         color #ffff
         display flex

@@ -197,7 +197,6 @@
         margin-top 6px
         max-height 80%
     .zpageNav_wrapper
-         border 1px dashed red
          width 100%
     .searchInfor
      >>> .left

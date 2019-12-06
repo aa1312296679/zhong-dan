@@ -1,9 +1,9 @@
 <template>
-    <div class="list">
-     <template v-for="(item,index) in titles">
-         <!--列表头-->
-         <list-title :key="`${item.catId}${index}`" :titleInfor="item" :rowsCount="titles.length"></list-title>
-     </template>
+    <div :class="[listWrapper]">
+         <template v-for="(item,index) in titles">
+             <!--列表头-->
+             <list-title :key="`${item.catId}${index}`" :titleInfor="item" :rowsCount="titles.length"></list-title>
+         </template>
         <!--列表内容-->
         <list-content :key="`${index}${item.catId}`" v-for="(item,index) in contents" :infor="item"></list-content>
     </div>
@@ -22,7 +22,16 @@
             contents:{ //列表内容信息
                 type:Array,
                 default:()=>[]
+            },
+            _listWrapper:{
+                type:String,
+                default:'list'
             }
+        },
+        data(){
+          return {
+              listWrapper:this._listWrapper
+          }
         },
         created(){
           console.log(this.titles);

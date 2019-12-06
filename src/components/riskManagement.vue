@@ -170,7 +170,6 @@
         margin-top 6px
         max-height 80%
     .zpageNav_wrapper
-         border 1px dashed red
          width 100%
     .searchInfor
      >>> .left
@@ -184,6 +183,6 @@
                     text-align: left
                     border none
             >>> .input_txt
-                     border 1px dashed #67b9ff
+                     border 1px solid #67b9ff
                      width 151px
 </style>

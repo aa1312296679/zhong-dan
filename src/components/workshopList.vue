@@ -102,7 +102,6 @@
 .workList
     width 410px
     height 851px
-    border 1px dashed orange
     float right
     margin-top 50px
     background rgba(12, 32, 53, 0.6)

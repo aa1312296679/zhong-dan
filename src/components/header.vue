@@ -48,7 +48,6 @@ export default {
   padding-left 1.6rem
   padding-right 2.4rem
   position relative
-  border 1px dashed red
   .logo_wrapper
     width 37.2rem
     height 4rem

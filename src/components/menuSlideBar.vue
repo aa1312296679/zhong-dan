@@ -129,7 +129,6 @@
 
 <style lang="stylus" scoped>
 .menu_slideBar
-    border 1px dashed red;
     width 56px
     height 980px
     margin-left 20px
@@ -139,7 +138,6 @@
 .menu_infor
     width 56px
     min-height 339.2px
-    border 1px dashed greenyellow
     display flex
     flex-direction column
     align-items center
@@ -153,13 +151,10 @@
         align-items center
         position relative
         cursor: pointer
-        .ico
-            border 1px dashed red
-         &::before
+        &::before
              content:""
              display block
              position absolute
-             border 1px solid red
              width 38px
              height 51.2px
              transform skewY(35deg)

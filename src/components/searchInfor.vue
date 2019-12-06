@@ -38,12 +38,10 @@
       .left,.right
           float left
           height 30px
-          border 1px dashed red
       .right
         .btn
             width 30px
             height 30px
-            border 1px solid red
             display flex
             justify-content center
             align-items center

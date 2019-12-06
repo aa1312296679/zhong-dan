@@ -84,7 +84,6 @@
 .content_wrapper,.content
     width 390px
 .content_wrapper
-    border 1px dashed red
     margin 0 auto
     .content
         display flex

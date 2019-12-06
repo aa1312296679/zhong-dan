@@ -20,7 +20,6 @@
 
 <style scoped lang="stylus">
 .search
-    border 1px dashed blue
     height 3.68rem
     width 36.8rem
     position absolute

@@ -153,13 +153,12 @@
     align-items center
     position relative
     .ico
-        border 1px dashed blue
         display block
         position absolute
         left 81px
         width 18px
         height 18px
-    .title_txt,.input_txt,.input_select,.input_calendar
+    .input_txt,.input_select,.input_calendar
         border 1px solid #67b9ff
         background: none
         color #FFFFFF
@@ -168,8 +167,6 @@
         width 96px
         height 30px
         margin-left 9px
-    .title_txt
-        border 1px dashed red
     .input_txt,.input_calendar
         text-indent 6px
     .input_calendar

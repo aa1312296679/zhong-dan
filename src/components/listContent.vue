@@ -79,13 +79,11 @@
 
 <style lang="stylus" scoped>
 .list_content
-    border 1px dashed red
     clear both
     color #fff
     overflow hidden
     .list_item
         height 36px
-        border 1px dashed blue
         text-align center
         float left
         display flex
@@ -95,5 +93,4 @@
             cursor pointer
             width 20px
             height 20px
-            border 1px dashed orange
 </style>
