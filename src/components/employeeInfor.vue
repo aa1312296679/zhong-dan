@@ -9,6 +9,10 @@
             </search-infor>
             <!--列表信息-->
             <list :titles="workTitles" :contents="workContents"></list>
+            <!--底部分页页码-->
+            <div class="zpageNav_wrapper">
+                <zpage-nav :curPage="page" :page-size="pageSize" :total="total" :max-page="maxPage"  :prevHtml="prev" :nextHtml="next" :pagehandler="pageHandler"></zpage-nav>
+            </div>
         </work-wrapper>
     </div>
 </template>
@@ -18,13 +22,14 @@
     import WorkShopHeader from "components/workShopHeader";
     import SearchInfor from "components/searchInfor";
     import SearchControl from "components/searchControl";
+    import zpageNav from "components/zpageNav";
     import List from "components/list";
     export default {
         name: "employeeInfor",
         data(){
             return {
                 workWrapperStyl:{width:'101%',height:'101%',left:'-4px',top:'-4px'},
-                headerInfors:[{img:"/img/main-outin-list-icon.png", txt:"车间列表", isClose:true}],
+                headerInfors:[{img:"/img/main-outin-list-icon.png", txt:"人员信息管理", isClose:true}],
                 // 搜索控件
                 searchControls:[
                     {txt:"姓名",controlType:1},
@@ -59,10 +64,26 @@
                 isState:true, //提交状态 true允许提交 false禁止提交 ajax提交但数据未成功时false，ajax提交并提交成功时true
                 activeOptionIndexs:[0,1,0], //所有被选中的option索引 暂时假设所有控件都用第一个Option索引
                 nameVal:"",  //用户输入的姓名
-                lastSelectStyl:{paddingRight:'9px'} //最后一项select下拉框的样式兼容处理
+                lastSelectStyl:{paddingRight:'9px'}, //最后一项select下拉框的样式兼容处理
+                page: 1,  //显示的是哪一页
+                pageSize: 12, //每一页显示的数据条数
+                total: 108, //记录总数
+                maxPage:96, //最大页数
+                prev:'<<',
+                next:'>>'
             }
         },
+        created() {
+          console.log(this.listWrapper)
+        },
         methods:{
+            /***
+             * pagehandler方法
+             * @returns {IterableIterator<*>}
+             */
+            pageHandler: function (page) {
+                this.page = page;
+            },
             /**
              * 获取头部组件的头部信息
              * **/
@@ -143,7 +164,7 @@
                 });
             }
         },
-        components: {List, SearchControl, SearchInfor, WorkShopHeader, WorkWrapper}
+        components: {List, SearchControl, SearchInfor, WorkShopHeader, WorkWrapper, zpageNav}
     }
 </script>
 

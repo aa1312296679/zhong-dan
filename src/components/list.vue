@@ -23,7 +23,7 @@
                 type:Array,
                 default:()=>[]
             },
-            _listWrapper:{
+            _listWrapper:{ //列表容器
                 type:String,
                 default:'list'
             }
@@ -34,7 +34,7 @@
           }
         },
         created(){
-          console.log(this.titles);
+          console.log(this.listWrapper);
         },
         components:{
             ListContent,

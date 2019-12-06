@@ -42,6 +42,8 @@
                 let nextHtml =this.nextHtml ? this.nextHtml : '&gt;';
                 let hasPrev = page > 1;
                 let hasNext = page < pageCount;
+                var p1 = 1 + 2 + this.p0; //首页+省略至少2个页码+中间页面数的一半
+                var start, end;
 
                 //上一页
                 pageList.push({
@@ -54,13 +56,10 @@
                 //首页
                 pageList.push({
                     class: page == 1 ? 'active' : '',
-                    isShow:true,
+                    isShow:page < p1,
                     page: 1,
                     html: 1
                 });
-
-                var p1 = 1 + 2 + this.p0; //首页+省略至少2个页码+中间页面数的一半
-                var start, end;
 
                 if(page >= p1) {
                     start = page - this.p0;
@@ -106,7 +105,7 @@
                 if(pageCount > 1) {
                     pageList.push({
                         class: page == pageCount ? 'active' : '',
-                        isShow:pageCount > 1,
+                        isShow:end >= pageCount-1,
                         page: pageCount,
                         html: pageCount
                     });
@@ -123,7 +122,7 @@
                 return pageList;
             },
            p0(){
-               return Math.floor(this.maxPage / (this.maxPage / 2.5))
+               return Math.floor(this.maxPage / (this.maxPage / 2))
            }
         },
         methods: {

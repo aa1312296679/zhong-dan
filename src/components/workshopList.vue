@@ -14,7 +14,11 @@
                 </template>
             </searchInfor>
             <!--车间列表信息-->
-            <list :titles="workTitles" :contents="workContents"></list>
+            <list :titles="workTitles" :contents="workContents"  :_listWrapper="listWrapper"></list>
+           <!--底部分页页码-->
+           <div class="zpageNav_wrapper">
+               <zpage-nav :curPage="page" :page-size="pageSize" :total="total" :max-page="maxPage"  :prevHtml="prev" :nextHtml="next" :pagehandler="pageHandler"></zpage-nav>
+           </div>
        </work-wrapper>
     </div>
 </template>
@@ -26,10 +30,12 @@
     import searchControl from "components/searchControl";
     import List from "components/list";
     import WorkWrapper from "components/workWrapper";
+    import zpageNav from "components/zpageNav";
     export default {
         name: "workshopList",
         data(){
           return {
+            listWrapper:"employeeInfor_list_wrapper",
             // 头部信息
             headerInfors:[{img:"/img/main-workshop-list-icon.png", txt:"车间列表", isClose:true},{img:"/img/main-workshop-peopel-icon.png", txt:"闲置车间人员定位列表", isClose:false}],
             // 搜索控件
@@ -55,10 +61,23 @@
              isState:true, //提交状态 true允许提交 false禁止提交 ajax提交但数据未成功时false，ajax提交并提交成功时true
              activeOptionIndex:0, //被选中的option
              nameVal:"",  //用户输入的姓名
-             workWrapperStyl:{width:'415px',height:'101%',left:'-4px',top:'-4px'}
+             workWrapperStyl:{width:'416px',height:'100.5%',left:'-3.2px',top:'-2px'},
+             page: 1,  //显示的是哪一页
+             pageSize: 12, //每一页显示的数据条数
+             total: 108, //记录总数
+             maxPage:96, //最大页数
+             prev:'<<',
+             next:'>>'
           }
         },
         methods:{
+        /***
+         * pagehandler方法
+         * @returns {IterableIterator<*>}
+         */
+        pageHandler: function (page) {
+            this.page = page;
+        },
           /**
            * 获取头部组件的头部信息
            * **/
@@ -93,7 +112,8 @@
             workShopHeader,
             workShopListContent,
             searchInfor,
-            searchControl
+            searchControl,
+            zpageNav
         }
     }
 </script>
@@ -110,6 +130,27 @@
     box-shadow: -2px 0px 2px rgba(79, 173, 233, 0.6) inset, 0px -2px 2px rgba(79, 173, 233, 0.6) inset, 2px 0px 2px rgba(79, 173, 233, 0.6) inset, 0px 2px 2px rgba(79, 173, 233, 0.6) inset
     position relative
     margin-right 20px
+    .zpageNav_wrapper
+          width 100%
+          >>> .zpagenav ul
+                    float: right
+                    max-width: 220px
+                    margin-right: 10px
+                    margin-left: 0
+    .employeeInfor_list_wrapper
+        font-size: 12px;
+        text-align: center;
+        border: 1px solid #0f8bff;
+        border-radius: 4px;
+        display table
+        overflow hidden
+        margin 0 auto
+        margin-top 6px
+        >>> .list_content
+                &:nth-child(odd)
+                    background rgba(7, 45, 84, 0);
+                &:nth-child(even)
+                    background rgba(7, 45, 84, 0.5);
     >>> .bg_blue
             border 1px solid #00b2ff
             .cur_progress
